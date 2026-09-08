@@ -32,17 +32,6 @@ export const ReceiptModal: React.FC = () => {
     downloadReceiptPdf(blob, activeReceipt.orderRef);
   };
 
-  const handleSharePdf = async () => {
-    const blob = await getPdf();
-    const file = new File([blob], `desert-blooms-invoice-${activeReceipt.orderRef}.pdf`, { type: "application/pdf" });
-    if (navigator.share && (!navigator.canShare || navigator.canShare({ files: [file] }))) {
-      await navigator.share({ files: [file], title: `Desert Blooms invoice ${activeReceipt.orderRef}`, text: activeReceipt.whatsappMessage });
-    } else {
-      downloadReceiptPdf(blob, activeReceipt.orderRef);
-      window.open(activeReceipt.whatsappUrl, "_blank", "noopener,noreferrer");
-    }
-  };
-
   return (
     <div className="receipt-modal-overlay" onClick={() => setActiveReceipt(null)}>
       <div className="receipt-modal" onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true" aria-label="Order Receipt Confirmation">
@@ -63,8 +52,8 @@ export const ReceiptModal: React.FC = () => {
           <div className="receipt-total-banner"><div><div className="total-label">Grand Total Amount</div><div className="amount-words">{words}</div></div><div className="total-value">{activeReceipt.formattedTotal}</div></div>
         </div>
         <footer className="receipt-modal-footer">
-          <button type="button" className="whatsapp-primary-btn" onClick={handleSharePdf} disabled={pdfBusy}><MessageCircle size={20} /><span>{pdfBusy ? "Preparing PDF…" : "Send order + PDF via WhatsApp"}</span></button>
-          <div className="receipt-secondary-actions"><button className="button button-outline" onClick={handleSharePdf} disabled={pdfBusy}><FileDown size={16} />{pdfBusy ? "Preparing PDF…" : "Share PDF + WhatsApp"}</button><button className="button button-outline" onClick={handleDownload} disabled={pdfBusy}><FileDown size={16} />Download PDF</button><button className="button button-outline" onClick={handleCopySummary}>{copied ? <Check size={16} /> : <Copy size={16} />}{copied ? "Copied" : "Copy text"}</button></div>
+          <a href={activeReceipt.whatsappUrl} target="_blank" rel="noopener noreferrer" className="whatsapp-primary-btn"><MessageCircle size={20} /><span>Send order details via WhatsApp</span></a>
+          <div className="receipt-secondary-actions"><button className="button button-outline" onClick={handleDownload} disabled={pdfBusy}><FileDown size={16} />{pdfBusy ? "Preparing PDF…" : "Download PDF"}</button><button className="button button-outline" onClick={handleCopySummary}>{copied ? <Check size={16} /> : <Copy size={16} />}{copied ? "Copied" : "Copy text"}</button></div>
           <div className="security-notice"><ShieldCheck size={14} /><span>Branded one-page invoice · Amount shown in words · Page 1 of 1</span></div>
         </footer>
       </div>
