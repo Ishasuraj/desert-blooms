@@ -1,0 +1,1327 @@
+// Generated from the supplied 132 product cards.
+export interface Tool {
+  id: string; binNo: string; name: string; description: string; category: string; price: number; image: string; inStock: boolean;
+}
+
+export const TOOLS: Tool[] = [
+  {
+    "id": "tool-0405329",
+    "binNo": "0405329",
+    "name": "Watering Wand 3-Functional - Fiskars",
+    "description": "Watering Wand 3-Functional - Fiskars for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Sprayers & Sprinklers",
+    "price": 13.0,
+    "image": "/images/tools/tool_001.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-0400031",
+    "binNo": "0400031",
+    "name": "Fixed Blade Saw SW84 - Fiskars",
+    "description": "Fixed Blade Saw SW84 - Fiskars for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Pruning & Cutting",
+    "price": 18.5,
+    "image": "/images/tools/tool_002.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-036730",
+    "binNo": "036730",
+    "name": "Professional Pruning Saw SW-240 - Fiskars",
+    "description": "Professional Pruning Saw SW-240 - Fiskars for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Pruning & Cutting",
+    "price": 19.5,
+    "image": "/images/tools/tool_003.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-0400017",
+    "binNo": "0400017",
+    "name": "Industrial 40V Li-Ion Brushless Cordless Lawn Mower - Wokin",
+    "description": "Industrial 40V Li-Ion Brushless Cordless Lawn Mower - Wokin for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Lawn & Mowing",
+    "price": 49.5,
+    "image": "/images/tools/tool_004.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-011034",
+    "binNo": "011034",
+    "name": "Industrial Backpack Gasoline Blower - Wokin",
+    "description": "Industrial Backpack Gasoline Blower - Wokin for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Lawn & Mowing",
+    "price": 59.0,
+    "image": "/images/tools/tool_005.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-0403620",
+    "binNo": "0403620",
+    "name": "Industrial Petrol Lawn Mower 3200W - Wokin",
+    "description": "Industrial Petrol Lawn Mower 3200W - Wokin for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Lawn & Mowing",
+    "price": 89.0,
+    "image": "/images/tools/tool_006.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-0403881",
+    "binNo": "0403881",
+    "name": "Pruning Shears for Sheep / Topiary - Taiwan Made",
+    "description": "Pruning Shears for Sheep / Topiary - Taiwan Made for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Pruning & Cutting",
+    "price": 1.95,
+    "image": "/images/tools/tool_007.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-0400260",
+    "binNo": "0400260",
+    "name": "Pulsating Lawn Sprinkler with Stand",
+    "description": "Pulsating Lawn Sprinkler with Stand for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Sprayers & Sprinklers",
+    "price": 1.7,
+    "image": "/images/tools/tool_008.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-0404011",
+    "binNo": "0404011",
+    "name": "Plastic Male Thread Quick Connector 3/4 Inch",
+    "description": "Plastic Male Thread Quick Connector 3/4 Inch for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Connectors & Fittings",
+    "price": 0.16,
+    "image": "/images/tools/tool_009.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-0403391",
+    "binNo": "0403391",
+    "name": "Hose Connector 1/2 Inch - Taiwan Made",
+    "description": "Hose Connector 1/2 Inch - Taiwan Made for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Connectors & Fittings",
+    "price": 1.5,
+    "image": "/images/tools/tool_010.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-0403101",
+    "binNo": "0403101",
+    "name": "Solenoid Electric Spray Gun 800ML - Wokin",
+    "description": "Solenoid Electric Spray Gun 800ML - Wokin for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Sprayers & Sprinklers",
+    "price": 6.85,
+    "image": "/images/tools/tool_011.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-0403108",
+    "binNo": "0403108",
+    "name": "HVLP Hand Held Electric Spray Gun 800ML - Wokin",
+    "description": "HVLP Hand Held Electric Spray Gun 800ML - Wokin for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Sprayers & Sprinklers",
+    "price": 10.45,
+    "image": "/images/tools/tool_012.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-040432",
+    "binNo": "040432",
+    "name": "Tap Adaptor 3/4 x 1 Inch - Wokin",
+    "description": "Tap Adaptor 3/4 x 1 Inch - Wokin for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Connectors & Fittings",
+    "price": 0.15,
+    "image": "/images/tools/tool_013.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-040429",
+    "binNo": "040429",
+    "name": "Hose Connector 1/2 Inch - Wokin",
+    "description": "Hose Connector 1/2 Inch - Wokin for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Connectors & Fittings",
+    "price": 0.2,
+    "image": "/images/tools/tool_014.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-0403114",
+    "binNo": "0403114",
+    "name": "Bypass Pattern Pruning Shear 8 Inch - Wokin",
+    "description": "Bypass Pattern Pruning Shear 8 Inch - Wokin for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Pruning & Cutting",
+    "price": 1.95,
+    "image": "/images/tools/tool_015.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-0401108",
+    "binNo": "0401108",
+    "name": "Straight Blade Pruning Shear 8 Inch - Wokin",
+    "description": "Straight Blade Pruning Shear 8 Inch - Wokin for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Pruning & Cutting",
+    "price": 1.1,
+    "image": "/images/tools/tool_016.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-0400039",
+    "binNo": "0400039",
+    "name": "Garden Pressure Sprayer 20L Backpack - Wokin",
+    "description": "Garden Pressure Sprayer 20L Backpack - Wokin for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Sprayers & Sprinklers",
+    "price": 7.45,
+    "image": "/images/tools/tool_017.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-0403545",
+    "binNo": "0403545",
+    "name": "Brush Cutter and Line Trimmer 43CC Gasoline - Wokin",
+    "description": "Brush Cutter and Line Trimmer 43CC Gasoline - Wokin for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Lawn & Mowing",
+    "price": 41.0,
+    "image": "/images/tools/tool_018.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db019",
+    "binNo": "DB019",
+    "name": "Professional Garden Tool 019",
+    "description": "Professional Garden Tool 019 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_019.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db020",
+    "binNo": "DB020",
+    "name": "Professional Garden Tool 020",
+    "description": "Professional Garden Tool 020 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_020.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db021",
+    "binNo": "DB021",
+    "name": "Professional Garden Tool 021",
+    "description": "Professional Garden Tool 021 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_021.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db022",
+    "binNo": "DB022",
+    "name": "Professional Garden Tool 022",
+    "description": "Professional Garden Tool 022 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_022.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db023",
+    "binNo": "DB023",
+    "name": "(Aatocae",
+    "description": "(Aatocae for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_023.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db024",
+    "binNo": "DB024",
+    "name": "Fy Gung ) Cunsnysenct Mena One",
+    "description": "Fy Gung ) Cunsnysenct Mena One for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_024.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db025",
+    "binNo": "DB025",
+    "name": "Hedgecittereasedgecut 5-Bosch",
+    "description": "Hedgecittereasedgecut 5-Bosch for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Pruning & Cutting",
+    "price": 1.0,
+    "image": "/images/tools/tool_025.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db026",
+    "binNo": "DB026",
+    "name": "Arden Chainsaw Universaicain35",
+    "description": "Arden Chainsaw Universaicain35 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Lawn & Mowing",
+    "price": 1.0,
+    "image": "/images/tools/tool_026.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db027",
+    "binNo": "DB027",
+    "name": "Professional Garden Tool 027",
+    "description": "Professional Garden Tool 027 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_027.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db028",
+    "binNo": "DB028",
+    "name": "Functional Form Gardening Nassons",
+    "description": "Functional Form Gardening Nassons for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_028.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db029",
+    "binNo": "DB029",
+    "name": "Cordless Hedge Trimmer Hs 18 Tx",
+    "description": "Cordless Hedge Trimmer Hs 18 Tx for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Lawn & Mowing",
+    "price": 1.0,
+    "image": "/images/tools/tool_029.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db030",
+    "binNo": "DB030",
+    "name": "Professional Garden Tool 030",
+    "description": "Professional Garden Tool 030 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_030.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db031",
+    "binNo": "DB031",
+    "name": "Water Can 121L-Ribmex (Taly)",
+    "description": "Water Can 121L-Ribmex (Taly) for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_031.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db032",
+    "binNo": "DB032",
+    "name": "Vcsrnrusseortomoos",
+    "description": "Vcsrnrusseortomoos for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_032.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db033",
+    "binNo": "DB033",
+    "name": "Re Than I Rmectnezs Nen",
+    "description": "Re Than I Rmectnezs Nen for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_033.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db034",
+    "binNo": "DB034",
+    "name": "Hedge Trimmer Hs 65 Cm- Metabo E",
+    "description": "Hedge Trimmer Hs 65 Cm- Metabo E for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Lawn & Mowing",
+    "price": 1.0,
+    "image": "/images/tools/tool_034.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db035",
+    "binNo": "DB035",
+    "name": "Electric Hedge Trimmer 750 Mm",
+    "description": "Electric Hedge Trimmer 750 Mm for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Lawn & Mowing",
+    "price": 1.0,
+    "image": "/images/tools/tool_035.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db036",
+    "binNo": "DB036",
+    "name": "Extendable Spiral Hose Kit10M- Ce",
+    "description": "Extendable Spiral Hose Kit10M- Ce for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Connectors & Fittings",
+    "price": 1.0,
+    "image": "/images/tools/tool_036.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db037",
+    "binNo": "DB037",
+    "name": "Carden Spraver 2 L-Wokin (China)",
+    "description": "Carden Spraver 2 L-Wokin (China) for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_037.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db038",
+    "binNo": "DB038",
+    "name": "Cordless Grass Trimmer 20 V Lon",
+    "description": "Cordless Grass Trimmer 20 V Lon for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Lawn & Mowing",
+    "price": 1.0,
+    "image": "/images/tools/tool_038.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db039",
+    "binNo": "DB039",
+    "name": "Professional Garden Tool 039",
+    "description": "Professional Garden Tool 039 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_039.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db040",
+    "binNo": "DB040",
+    "name": "(Cultvator Te335- Husqvarna (Swe",
+    "description": "(Cultvator Te335- Husqvarna (Swe for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_040.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db041",
+    "binNo": "DB041",
+    "name": "Cordless Lawn Mower Rm 36-187",
+    "description": "Cordless Lawn Mower Rm 36-187 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Lawn & Mowing",
+    "price": 1.0,
+    "image": "/images/tools/tool_041.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db042",
+    "binNo": "DB042",
+    "name": "Compact Enclosed Reel 10M Hozelo",
+    "description": "Compact Enclosed Reel 10M Hozelo for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Connectors & Fittings",
+    "price": 1.0,
+    "image": "/images/tools/tool_042.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db043",
+    "binNo": "DB043",
+    "name": "Selfextenoarle Hose Kit 30M Gr",
+    "description": "Selfextenoarle Hose Kit 30M Gr for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Connectors & Fittings",
+    "price": 1.0,
+    "image": "/images/tools/tool_043.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db044",
+    "binNo": "DB044",
+    "name": "Self-Extenoable Hose Kit20M- Gr",
+    "description": "Self-Extenoable Hose Kit20M- Gr for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Connectors & Fittings",
+    "price": 1.0,
+    "image": "/images/tools/tool_044.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db045",
+    "binNo": "DB045",
+    "name": "A Self-Extenoarle Hose Kit25M- Gr",
+    "description": "A Self-Extenoarle Hose Kit25M- Gr for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Connectors & Fittings",
+    "price": 1.0,
+    "image": "/images/tools/tool_045.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db046",
+    "binNo": "DB046",
+    "name": "Electric Vacuum Blower Merak",
+    "description": "Electric Vacuum Blower Merak for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Lawn & Mowing",
+    "price": 1.0,
+    "image": "/images/tools/tool_046.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db047",
+    "binNo": "DB047",
+    "name": "Professional Garden Tool 047",
+    "description": "Professional Garden Tool 047 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_047.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db048",
+    "binNo": "DB048",
+    "name": "Professional Garden Tool 048",
+    "description": "Professional Garden Tool 048 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_048.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db049",
+    "binNo": "DB049",
+    "name": "Professional Garden Tool 049",
+    "description": "Professional Garden Tool 049 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_049.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db050",
+    "binNo": "DB050",
+    "name": "(Caroen Stainless Steel Pruning",
+    "description": "(Caroen Stainless Steel Pruning for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Pruning & Cutting",
+    "price": 1.0,
+    "image": "/images/tools/tool_050.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db051",
+    "binNo": "DB051",
+    "name": "Professional Garden Tool 051",
+    "description": "Professional Garden Tool 051 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_051.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db052",
+    "binNo": "DB052",
+    "name": "Starterset 3/4 Inch-Claber (Tal",
+    "description": "Starterset 3/4 Inch-Claber (Tal for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_052.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db053",
+    "binNo": "DB053",
+    "name": "Professional Garden Tool 053",
+    "description": "Professional Garden Tool 053 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_053.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db054",
+    "binNo": "DB054",
+    "name": "Spreader- Husqvarna (Sweden)",
+    "description": "Spreader- Husqvarna (Sweden) for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_054.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db055",
+    "binNo": "DB055",
+    "name": "Professional Garden Tool 055",
+    "description": "Professional Garden Tool 055 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_055.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db056",
+    "binNo": "DB056",
+    "name": "F S/ Custo Folding Tpe S08F",
+    "description": "F S/ Custo Folding Tpe S08F for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_056.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db057",
+    "binNo": "DB057",
+    "name": "Pruning Shear Htpoo8-Gapro Korea",
+    "description": "Pruning Shear Htpoo8-Gapro Korea for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Pruning & Cutting",
+    "price": 1.0,
+    "image": "/images/tools/tool_057.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db058",
+    "binNo": "DB058",
+    "name": "Professional Garden Tool 058",
+    "description": "Professional Garden Tool 058 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_058.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db059",
+    "binNo": "DB059",
+    "name": "Slb Two Behind Spreader- Husqvar",
+    "description": "Slb Two Behind Spreader- Husqvar for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_059.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db060",
+    "binNo": "DB060",
+    "name": "Professional Garden Tool 060",
+    "description": "Professional Garden Tool 060 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_060.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db061",
+    "binNo": "DB061",
+    "name": "Aa Tllertr530-Husqvarna (Sweden)",
+    "description": "Aa Tllertr530-Husqvarna (Sweden) for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_061.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db062",
+    "binNo": "DB062",
+    "name": "Sprabel Hose Sso Mm -Hozelock",
+    "description": "Sprabel Hose Sso Mm -Hozelock for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Connectors & Fittings",
+    "price": 1.0,
+    "image": "/images/tools/tool_062.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db063",
+    "binNo": "DB063",
+    "name": "Flexoilhoseotoa",
+    "description": "Flexoilhoseotoa for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Connectors & Fittings",
+    "price": 1.0,
+    "image": "/images/tools/tool_063.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db064",
+    "binNo": "DB064",
+    "name": "Ay Y / Fy Industrial 40 V Lhon Brushless .. Inno 0900017 Rs00Kwd",
+    "description": "Ay Y / Fy Industrial 40 V Lhon Brushless .. Inno 0900017 Rs00Kwd for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_064.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db065",
+    "binNo": "DB065",
+    "name": "Oy Industrial Backpack Gasoline Blower... Bin Nozo11034 59.000Kwd",
+    "description": "Oy Industrial Backpack Gasoline Blower... Bin Nozo11034 59.000Kwd for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Lawn & Mowing",
+    "price": 59.0,
+    "image": "/images/tools/tool_065.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-0403620",
+    "binNo": "0403620",
+    "name": "Industrial Petrol Lawn Mower 3200W - Wokin",
+    "description": "Heavy-duty self-propelled petrol lawn mower with 3200W engine, multi-height adjustment, and reinforced steel deck for demanding turf management.",
+    "category": "Lawn & Mowing",
+    "price": 89.0,
+    "image": "/images/tools/tool_066.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db067",
+    "binNo": "DB067",
+    "name": "Cordless Wireless Welloo Garden Hedge Trimmer Wi... Shears 8 Gds",
+    "description": "Cordless Wireless Welloo Garden Hedge Trimmer Wi... Shears 8 Gds for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Lawn & Mowing",
+    "price": 20.5,
+    "image": "/images/tools/tool_067.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db068",
+    "binNo": "DB068",
+    "name": "Ae & Fra Ay - Electric Hedge Cordle 3608 Trimmer - Tasawu... Shear",
+    "description": "Ae & Fra Ay - Electric Hedge Cordle 3608 Trimmer - Tasawu... Shear for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Lawn & Mowing",
+    "price": 925.0,
+    "image": "/images/tools/tool_068.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db069",
+    "binNo": "DB069",
+    "name": "Z Y I I Ss Pruning Red And Black New / Plant Cutt... Dual-Blade Hedge... 9.750",
+    "description": "Z Y I I Ss Pruning Red And Black New / Plant Cutt... Dual-Blade Hedge... 9.750 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Pruning & Cutting",
+    "price": 9.75,
+    "image": "/images/tools/tool_069.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db070",
+    "binNo": "DB070",
+    "name": "Te A Se A Os Hh Ee Oll Aa See Cordless Grass Cordless Hedge Trimmer With 2 Trimmer 600W Batteries / Wireles... 2 Batteries Dca",
+    "description": "Te A Se A Os Hh Ee Oll Aa See Cordless Grass Cordless Hedge Trimmer With 2 Trimmer 600W Batteries / Wireles... 2 Batteries Dca for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Lawn & Mowing",
+    "price": 18.0,
+    "image": "/images/tools/tool_070.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db071",
+    "binNo": "DB071",
+    "name": "Y V/ Hedge Shear 24 Hedge Vith Dingqi Brand - Bas With Te Kuwait Alumit",
+    "description": "Y V/ Hedge Shear 24 Hedge Vith Dingqi Brand - Bas With Te Kuwait Alumit for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Pruning & Cutting",
+    "price": 1.75,
+    "image": "/images/tools/tool_071.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db072",
+    "binNo": "DB072",
+    "name": "Y Je Shear 12 Cordless Chain Saw Lescopic 16 With 2 Batteries - Ium Handle... Bas Kuwait 118 V... 4.950",
+    "description": "Y Je Shear 12 Cordless Chain Saw Lescopic 16 With 2 Batteries - Ium Handle... Bas Kuwait 118 V... 4.950 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Pruning & Cutting",
+    "price": 4.95,
+    "image": "/images/tools/tool_072.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db073",
+    "binNo": "DB073",
+    "name": "Ro Q (A Ph Oe",
+    "description": "Ro Q (A Ph Oe for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 2.75,
+    "image": "/images/tools/tool_073.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db074",
+    "binNo": "DB074",
+    "name": "Flat Rake 12 Teeth Wheel H2 4Mm Dingqi Wokin Wait Brand - Bas... Kuwai",
+    "description": "Flat Rake 12 Teeth Wheel H2 4Mm Dingqi Wokin Wait Brand - Bas... Kuwai for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Pruning & Cutting",
+    "price": 0.45,
+    "image": "/images/tools/tool_074.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db075",
+    "binNo": "DB075",
+    "name": "Iw (Tft Barrow Electric Water Brand - Bas Sprayer Gun Cordless Sprayer... 10.000",
+    "description": "Iw (Tft Barrow Electric Water Brand - Bas Sprayer Gun Cordless Sprayer... 10.000 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Sprayers & Sprinklers",
+    "price": 10.0,
+    "image": "/images/tools/tool_075.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db076",
+    "binNo": "DB076",
+    "name": "Ca A J 7 Ce J 4 S Gasoline Chain Saw Cordle 12 Dingqi Brand - For Leaf Bas Kuwait With 2",
+    "description": "Ca A J 7 Ce J 4 S Gasoline Chain Saw Cordle 12 Dingqi Brand - For Leaf Bas Kuwait With 2 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Pruning & Cutting",
+    "price": 26.5,
+    "image": "/images/tools/tool_076.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db077",
+    "binNo": "DB077",
+    "name": "Wy 12.000",
+    "description": "Wy 12.000 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 12.0,
+    "image": "/images/tools/tool_077.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db078",
+    "binNo": "DB078",
+    "name": "I Ia V I In Saw Total Gasoline Multi With 2 Tools 52Cc S.. (Tmt55211) )",
+    "description": "I Ia V I In Saw Total Gasoline Multi With 2 Tools 52Cc S.. (Tmt55211) ) for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Pruning & Cutting",
+    "price": 1.0,
+    "image": "/images/tools/tool_078.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db079",
+    "binNo": "DB079",
+    "name": "Professional Garden Tool 079",
+    "description": "Professional Garden Tool 079 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_079.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db080",
+    "binNo": "DB080",
+    "name": "Professional Garden Tool 080",
+    "description": "Professional Garden Tool 080 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_080.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db081",
+    "binNo": "DB081",
+    "name": "A A Mw Y S Aas",
+    "description": "A A Mw Y S Aas for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_081.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db082",
+    "binNo": "DB082",
+    "name": "Electric Chain 16 1800W Din Brand - Bas Ki",
+    "description": "Electric Chain 16 1800W Din Brand - Bas Ki for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_082.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db083",
+    "binNo": "DB083",
+    "name": "I Saw Cordl Gqi Leaf Iw... Folde Kwl",
+    "description": "I Saw Cordl Gqi Leaf Iw... Folde Kwl for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Pruning & Cutting",
+    "price": 1.0,
+    "image": "/images/tools/tool_083.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db084",
+    "binNo": "DB084",
+    "name": "A) Le Ess Electric 3Lower Ble 400W -... ) 15.000",
+    "description": "A) Le Ess Electric 3Lower Ble 400W -... ) 15.000 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_084.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db085",
+    "binNo": "DB085",
+    "name": "Mh. Uly So N-Z E We. Wi Mm Ce Cordless Chain Saw Cordless 250Mm (18V X 2 Li-Ion... 40V/5Ah 155.000",
+    "description": "Mh. Uly So N-Z E We. Wi Mm Ce Cordless Chain Saw Cordless 250Mm (18V X 2 Li-Ion... 40V/5Ah 155.000 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Pruning & Cutting",
+    "price": 155.0,
+    "image": "/images/tools/tool_085.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db086",
+    "binNo": "DB086",
+    "name": "Ff Ae Ss Hedge Trimmer Brushless Chainsa X2 400Mm 18Vx2 120.000",
+    "description": "Ff Ae Ss Hedge Trimmer Brushless Chainsa X2 400Mm 18Vx2 120.000 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Lawn & Mowing",
+    "price": 120.0,
+    "image": "/images/tools/tool_086.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db087",
+    "binNo": "DB087",
+    "name": "Os W Makita Cordless Chainsaw Kit .950",
+    "description": "Os W Makita Cordless Chainsaw Kit .950 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Lawn & Mowing",
+    "price": 185.0,
+    "image": "/images/tools/tool_087.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db088",
+    "binNo": "DB088",
+    "name": "Eo Cordless 18V+18V Li-Ion Cordles Lxt Chain Saw 25... Lxt Hed 93.000",
+    "description": "Eo Cordless 18V+18V Li-Ion Cordles Lxt Chain Saw 25... Lxt Hed 93.000 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Pruning & Cutting",
+    "price": 93.0,
+    "image": "/images/tools/tool_088.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db089",
+    "binNo": "DB089",
+    "name": "& Duh551Z Bakit Lt Cc 9S 18V+18V Li-Ion Cordless 18V+18 Se Trimme... Lxt Hedge Trimme 99.000",
+    "description": "& Duh551Z Bakit Lt Cc 9S 18V+18V Li-Ion Cordless 18V+18 Se Trimme... Lxt Hedge Trimme 99.000 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Pruning & Cutting",
+    "price": 99.0,
+    "image": "/images/tools/tool_089.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db090",
+    "binNo": "DB090",
+    "name": "/ Li-Ion Cordless 18V+18V Li-Ion See Lxt Grass Trimme... 00",
+    "description": "/ Li-Ion Cordless 18V+18V Li-Ion See Lxt Grass Trimme... 00 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 120.0,
+    "image": "/images/tools/tool_090.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db091",
+    "binNo": "DB091",
+    "name": "P20 E & 7 Ovcssora 400Mm Brushless 20V Cord Chainsaw 36V Trimmer 4 210.000",
+    "description": "P20 E & 7 Ovcssora 400Mm Brushless 20V Cord Chainsaw 36V Trimmer 4 210.000 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Lawn & Mowing",
+    "price": 210.0,
+    "image": "/images/tools/tool_091.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db092",
+    "binNo": "DB092",
+    "name": "Ce Ane Thtli20461 Agmunvan Less Hedge Cordless Chain Saw 50Mm 12 64.000",
+    "description": "Ce Ane Thtli20461 Agmunvan Less Hedge Cordless Chain Saw 50Mm 12 64.000 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Pruning & Cutting",
+    "price": 64.0,
+    "image": "/images/tools/tool_092.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db093",
+    "binNo": "DB093",
+    "name": "Ms53967 Aamuntar Ms53993 21V Cordless Chain Saw 21V 4 00",
+    "description": "Ms53967 Aamuntar Ms53993 21V Cordless Chain Saw 21V 4 00 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Pruning & Cutting",
+    "price": 13.75,
+    "image": "/images/tools/tool_093.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db094",
+    "binNo": "DB094",
+    "name": "Ez Os) Charger Fold Separately I - 20V 12 Brushless Chain 20V Cordle Saw Trimmer - 53.500",
+    "description": "Ez Os) Charger Fold Separately I - 20V 12 Brushless Chain 20V Cordle Saw Trimmer - 53.500 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Lawn & Mowing",
+    "price": 53.5,
+    "image": "/images/tools/tool_094.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db095",
+    "binNo": "DB095",
+    "name": "E& & -R 8S Ai Zi Chtli20018 Aworke Ss Hedge 20V 40Cm Mower Battery And... 47.250",
+    "description": "E& & -R 8S Ai Zi Chtli20018 Aworke Ss Hedge 20V 40Cm Mower Battery And... 47.250 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Lawn & Mowing",
+    "price": 47.25,
+    "image": "/images/tools/tool_095.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db096",
+    "binNo": "DB096",
+    "name": "/ Ay Bp By A Aes A ( Ee Ay Gy Wg743E Works Wg779E 20V 34Cm Mower 00",
+    "description": "/ Ay Bp By A Aes A ( Ee Ay Gy Wg743E Works Wg779E 20V 34Cm Mower 00 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Lawn & Mowing",
+    "price": 127.0,
+    "image": "/images/tools/tool_096.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-0403684",
+    "binNo": "0403684",
+    "name": "Pruning Shears For Sheep - Taiwan. Mo",
+    "description": "Pruning Shears For Sheep - Taiwan. Mo for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Pruning & Cutting",
+    "price": 4.98,
+    "image": "/images/tools/tool_097.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db098",
+    "binNo": "DB098",
+    "name": "3 Ts Ty Pulsating Lawn Sprinkler With. Stand... In No 0400260 4.700Kwd",
+    "description": "3 Ts Ty Pulsating Lawn Sprinkler With. Stand... In No 0400260 4.700Kwd for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Sprayers & Sprinklers",
+    "price": 4.7,
+    "image": "/images/tools/tool_098.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-0408014",
+    "binNo": "0408014",
+    "name": "L Plastic Male Thread 3/4 Inch Taw",
+    "description": "L Plastic Male Thread 3/4 Inch Taw for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 0.16,
+    "image": "/images/tools/tool_099.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db100",
+    "binNo": "DB100",
+    "name": "Professional Garden Tool 100",
+    "description": "Professional Garden Tool 100 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_100.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db101",
+    "binNo": "DB101",
+    "name": "Professional Garden Tool 101",
+    "description": "Professional Garden Tool 101 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_101.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db102",
+    "binNo": "DB102",
+    "name": "Professional Garden Tool 102",
+    "description": "Professional Garden Tool 102 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_102.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db103",
+    "binNo": "DB103",
+    "name": "Professional Garden Tool 103",
+    "description": "Professional Garden Tool 103 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_103.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db104",
+    "binNo": "DB104",
+    "name": "Professional Garden Tool 104",
+    "description": "Professional Garden Tool 104 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_104.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db105",
+    "binNo": "DB105",
+    "name": "Professional Garden Tool 105",
+    "description": "Professional Garden Tool 105 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_105.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db106",
+    "binNo": "DB106",
+    "name": "Professional Garden Tool 106",
+    "description": "Professional Garden Tool 106 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_106.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db107",
+    "binNo": "DB107",
+    "name": "Professional Garden Tool 107",
+    "description": "Professional Garden Tool 107 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_107.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db108",
+    "binNo": "DB108",
+    "name": "Professional Garden Tool 108",
+    "description": "Professional Garden Tool 108 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_108.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db109",
+    "binNo": "DB109",
+    "name": "Tap Adaptor 3/41 Ingh-Wokin",
+    "description": "Tap Adaptor 3/41 Ingh-Wokin for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Connectors & Fittings",
+    "price": 1.0,
+    "image": "/images/tools/tool_109.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db110",
+    "binNo": "DB110",
+    "name": "Hose Connector 1/2 Inch-Wokin. Cn",
+    "description": "Hose Connector 1/2 Inch-Wokin. Cn for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Connectors & Fittings",
+    "price": 1.0,
+    "image": "/images/tools/tool_110.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db111",
+    "binNo": "DB111",
+    "name": "Professional Garden Tool 111",
+    "description": "Professional Garden Tool 111 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_111.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db112",
+    "binNo": "DB112",
+    "name": "Professional Garden Tool 112",
+    "description": "Professional Garden Tool 112 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_112.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db113",
+    "binNo": "DB113",
+    "name": "Garden Pressure Prayer 20 L- Wokl",
+    "description": "Garden Pressure Prayer 20 L- Wokl for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_113.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db114",
+    "binNo": "DB114",
+    "name": "Professional Garden Tool 114",
+    "description": "Professional Garden Tool 114 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_114.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db115",
+    "binNo": "DB115",
+    "name": "Selfextenoable Hose Kit25 M- Gf",
+    "description": "Selfextenoable Hose Kit25 M- Gf for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Connectors & Fittings",
+    "price": 1.0,
+    "image": "/images/tools/tool_115.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db116",
+    "binNo": "DB116",
+    "name": "Hose Connectorset4 Pcs- Wokin C",
+    "description": "Hose Connectorset4 Pcs- Wokin C for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Connectors & Fittings",
+    "price": 1.0,
+    "image": "/images/tools/tool_116.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db117",
+    "binNo": "DB117",
+    "name": "Gs Paces",
+    "description": "Gs Paces for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_117.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db118",
+    "binNo": "DB118",
+    "name": "Professional Garden Tool 118",
+    "description": "Professional Garden Tool 118 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_118.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db119",
+    "binNo": "DB119",
+    "name": "4 Renames Nn No",
+    "description": "4 Renames Nn No for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_119.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db120",
+    "binNo": "DB120",
+    "name": "Hedge Shear Sso Mm-Wokin (China)",
+    "description": "Hedge Shear Sso Mm-Wokin (China) for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Pruning & Cutting",
+    "price": 1.0,
+    "image": "/images/tools/tool_120.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db121",
+    "binNo": "DB121",
+    "name": "Bow Saw 241Nch- Wokin (China)",
+    "description": "Bow Saw 241Nch- Wokin (China) for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Pruning & Cutting",
+    "price": 1.0,
+    "image": "/images/tools/tool_121.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db122",
+    "binNo": "DB122",
+    "name": "Pe Locomia On",
+    "description": "Pe Locomia On for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_122.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db123",
+    "binNo": "DB123",
+    "name": "Gasoline Chain Saw S00 Mm-Worin T",
+    "description": "Gasoline Chain Saw S00 Mm-Worin T for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Pruning & Cutting",
+    "price": 1.0,
+    "image": "/images/tools/tool_123.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db124",
+    "binNo": "DB124",
+    "name": "(We Nastocae",
+    "description": "(We Nastocae for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_124.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db125",
+    "binNo": "DB125",
+    "name": "Telescopic Bypass 38 Nch Automas",
+    "description": "Telescopic Bypass 38 Nch Automas for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_125.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db126",
+    "binNo": "DB126",
+    "name": "Flbuble Hose 100 Mm-Hozelock Uk",
+    "description": "Flbuble Hose 100 Mm-Hozelock Uk for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Connectors & Fittings",
+    "price": 1.0,
+    "image": "/images/tools/tool_126.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db127",
+    "binNo": "DB127",
+    "name": "Straight Shear S338-Taiwan Made",
+    "description": "Straight Shear S338-Taiwan Made for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Pruning & Cutting",
+    "price": 1.0,
+    "image": "/images/tools/tool_127.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db128",
+    "binNo": "DB128",
+    "name": "Bi Omen Ranmicsaw Ase. Ams",
+    "description": "Bi Omen Ranmicsaw Ase. Ams for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Pruning & Cutting",
+    "price": 1.0,
+    "image": "/images/tools/tool_128.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db129",
+    "binNo": "DB129",
+    "name": "Professional Garden Tool 129",
+    "description": "Professional Garden Tool 129 for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Garden Tools",
+    "price": 1.0,
+    "image": "/images/tools/tool_129.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db130",
+    "binNo": "DB130",
+    "name": "Hose Reel For Water 2502 Trucorle",
+    "description": "Hose Reel For Water 2502 Trucorle for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Connectors & Fittings",
+    "price": 1.0,
+    "image": "/images/tools/tool_130.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db131",
+    "binNo": "DB131",
+    "name": "Let Hedge Timmer Uh6Sto 550 W",
+    "description": "Let Hedge Timmer Uh6Sto 550 W for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Pruning & Cutting",
+    "price": 1.0,
+    "image": "/images/tools/tool_131.png",
+    "inStock": true
+  },
+  {
+    "id": "tool-db132",
+    "binNo": "DB132",
+    "name": "Corded Hedge Timmer Uh5261 520 Mm",
+    "description": "Corded Hedge Timmer Uh5261 520 Mm for dependable garden, landscaping, and agricultural work across Kuwait.",
+    "category": "Pruning & Cutting",
+    "price": 1.0,
+    "image": "/images/tools/tool_132.png",
+    "inStock": true
+  }
+];
