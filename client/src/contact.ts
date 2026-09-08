@@ -3,7 +3,7 @@ const phoneDisplay =
 const phoneTel =
   import.meta.env.VITE_CONTACT_PHONE_TEL?.trim() || "+96550410443";
 const whatsappNumber =
-  import.meta.env.VITE_CONTACT_WHATSAPP?.trim() || "96598855871";
+  import.meta.env.VITE_CONTACT_WHATSAPP?.trim() || "96560096148";
 const email =
   import.meta.env.VITE_CONTACT_EMAIL?.trim() || "desertbloooms@gmail.com";
 
