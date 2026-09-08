@@ -17,6 +17,7 @@ export const CartDrawer: React.FC = () => {
   } = useCart();
 
   const [customerName, setCustomerName] = useState("");
+  const [countryCode, setCountryCode] = useState("+965");
   const [customerPhone, setCustomerPhone] = useState("");
   const [deliveryNotes, setDeliveryNotes] = useState("");
   const [gotcha, setGotcha] = useState("");
@@ -36,7 +37,7 @@ export const CartDrawer: React.FC = () => {
       const payload = {
         customer: {
           name: customerName,
-          phone: customerPhone,
+          phone: `${countryCode} ${customerPhone.trim().replace(/^0+/, "")}`,
           deliveryNotes: deliveryNotes || undefined,
         },
         items: cartItems.map((item) => ({
@@ -192,16 +193,35 @@ export const CartDrawer: React.FC = () => {
 
                 <div className="form-group">
                   <label htmlFor="customerPhone">Phone / WhatsApp Number *</label>
-                  <input
-                    id="customerPhone"
-                    type="tel"
-                    required
-                    placeholder="e.g. +965 98855871 or 98855871"
-                    value={customerPhone}
-                    onChange={(e) => setCustomerPhone(e.target.value)}
-                    disabled={submitting}
-                    maxLength={20}
-                  />
+                  <div className="phone-input-row">
+                    <select
+                      id="countryCode"
+                      aria-label="Country code"
+                      value={countryCode}
+                      onChange={(e) => setCountryCode(e.target.value)}
+                      disabled={submitting}
+                    >
+                      <option value="+965">KW +965</option>
+                      <option value="+966">SA +966</option>
+                      <option value="+971">AE +971</option>
+                      <option value="+974">QA +974</option>
+                      <option value="+973">BH +973</option>
+                      <option value="+968">OM +968</option>
+                      <option value="+91">IN +91</option>
+                      <option value="+44">GB +44</option>
+                      <option value="+1">US +1</option>
+                    </select>
+                    <input
+                      id="customerPhone"
+                      type="tel"
+                      required
+                      placeholder="Phone number"
+                      value={customerPhone}
+                      onChange={(e) => setCustomerPhone(e.target.value)}
+                      disabled={submitting}
+                      maxLength={15}
+                    />
+                  </div>
                 </div>
 
                 <div className="form-group">

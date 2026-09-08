@@ -698,7 +698,7 @@ h2 { font-size: clamp(44px, 5.4vw, 76px); }
 .customer-info-section h3 { font-size: 14px; font-weight: 700; margin: 0 0 14px; text-transform: uppercase; letter-spacing: 0.05em; }
 .form-group { margin-bottom: 12px; }
 .form-group label { display: block; font-size: 11px; font-weight: 700; margin-bottom: 4px; color: var(--ink); }
-.form-group input, .form-group textarea {
+.form-group input, .form-group textarea, .phone-input-row select {
   width: 100%;
   padding: 10px 12px;
   background: #f8f6f0;
@@ -706,6 +706,9 @@ h2 { font-size: clamp(44px, 5.4vw, 76px); }
   border-radius: 4px;
   font-size: 13px;
 }
+.phone-input-row { display: flex; gap: 8px; }
+.phone-input-row select { width: 112px; flex: 0 0 112px; }
+.phone-input-row input { flex: 1; min-width: 0; }
 .hp-field { display: none !important; }
 
 .cart-summary-footer { margin-top: 16px; padding-top: 16px; border-top: 1px dashed var(--border); }
