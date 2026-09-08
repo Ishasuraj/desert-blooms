@@ -17,7 +17,7 @@ export const CartDrawer: React.FC = () => {
   } = useCart();
 
   const [customerName, setCustomerName] = useState("");
-  const [countryCode, setCountryCode] = useState("+965");
+  const [countryCode, setCountryCode] = useState("+44");
   const [customerPhone, setCustomerPhone] = useState("");
   const [deliveryNotes, setDeliveryNotes] = useState("");
   const [gotcha, setGotcha] = useState("");
