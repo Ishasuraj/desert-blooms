@@ -290,10 +290,6 @@ export default function Home() {
                 <Phone size={17} />
                 {contact.phoneDisplay}
               </a>
-              <a href={contact.whatsappUrl} target="_blank" rel="noreferrer">
-                <MessageCircle size={17} />
-                WhatsApp us (+965 98855871)
-              </a>
               {contact.email ? (
                 <a href={`mailto:${contact.email}`}>
                   <ArrowUpRight size={17} />
