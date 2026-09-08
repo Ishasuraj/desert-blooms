@@ -1,8 +1,7 @@
 import { createOrderSchema, CreateOrderInput } from "../shared/orderSchema.js";
 import toolsData from "../shared/tools.json" with { type: "json" };
 
-const TARGET_WHATSAPP_NUMBER =
-  process.env.VITE_CONTACT_WHATSAPP?.trim() || "96598855871";
+const TARGET_WHATSAPP_NUMBER = "96598855871";
 
 const ONES = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"];
 const TENS = ["", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"];
