@@ -1,7 +1,8 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
 
-import { getClientIp, readJsonBody } from "../../server/processEnquiry.js";
+import { getClientIp, readJsonBody, RequestBodyTooLargeError } from "../../server/processEnquiry.js";
 import { processOrder } from "../../server/processOrder.js";
+import { checkServerRateLimit } from "../../server/serverRateLimit.js";
 
 type VercelRequest = IncomingMessage & { body?: unknown };
 type VercelResponse = ServerResponse & {
@@ -17,6 +18,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return;
   }
 
+  const rateLimit = checkServerRateLimit(`order:${getClientIp(req)}`, 10);
+  if (rateLimit.limited) {
+    res.status(429).setHeader("Retry-After", rateLimit.retryAfterSeconds).json({ message: "Too many order requests. Please try again later." });
+    return;
+  }
+
   try {
     const body = await readJsonBody(req);
     const result = await processOrder(body, getClientIp(req));
@@ -27,7 +34,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     res.status(200).json(result.receipt);
-  } catch {
+  } catch (error) {
+    if (error instanceof RequestBodyTooLargeError) {
+      res.status(413).json({ message: "Request body is too large" });
+      return;
+    }
     res.status(400).json({ message: "Invalid request body" });
   }
 }

@@ -6,6 +6,15 @@ export type EnquiryResult =
   | { ok: true }
   | { ok: false; status: number; message: string };
 
+export const MAX_REQUEST_BODY_BYTES = 16 * 1024;
+
+export class RequestBodyTooLargeError extends Error {
+  constructor() {
+    super("Request body is too large");
+    this.name = "RequestBodyTooLargeError";
+  }
+}
+
 export async function processEnquiry(
   body: unknown,
   clientIp: string,
@@ -60,8 +69,17 @@ export function readJsonBody(
 
   return new Promise((resolve, reject) => {
     let body = "";
+    let bodyBytes = 0;
+    let rejected = false;
 
     req.on("data", (chunk) => {
+      if (rejected) return;
+      bodyBytes += Buffer.byteLength(chunk);
+      if (bodyBytes > MAX_REQUEST_BODY_BYTES) {
+        rejected = true;
+        reject(new RequestBodyTooLargeError());
+        return;
+      }
       body += chunk.toString();
     });
 
@@ -83,9 +101,9 @@ export function getClientIp(
     socket?: { remoteAddress?: string | null };
   },
 ) {
-  const forwarded = req.headers["x-forwarded-for"];
-  if (typeof forwarded === "string" && forwarded.length > 0) {
-    return forwarded.split(",")[0]?.trim() || "unknown";
+  const realIp = req.headers["x-real-ip"];
+  if (typeof realIp === "string" && realIp.trim().length > 0) {
+    return realIp.trim();
   }
 
   return req.socket?.remoteAddress || "unknown";
