@@ -8,6 +8,29 @@ export const ReceiptModal: React.FC = () => {
   const [copied, setCopied] = React.useState(false);
   const [pdfBusy, setPdfBusy] = React.useState(false);
 
+  React.useEffect(() => {
+    if (!activeReceipt) return;
+
+    window.history.pushState({ receiptModalOpen: true }, "");
+
+    const handlePopState = () => {
+      setActiveReceipt(null);
+    };
+
+    window.addEventListener("popstate", handlePopState);
+
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, [activeReceipt, setActiveReceipt]);
+
+  const closeReceipt = () => {
+    setActiveReceipt(null);
+    if (window.history.state?.receiptModalOpen) {
+      window.history.back();
+    }
+  };
+
   if (!activeReceipt) return null;
   const words = activeReceipt.amountInWords || amountInWords(activeReceipt.totalAmount);
 
@@ -33,11 +56,11 @@ export const ReceiptModal: React.FC = () => {
   };
 
   return (
-    <div className="receipt-modal-overlay" onClick={() => setActiveReceipt(null)}>
+    <div className="receipt-modal-overlay" onClick={closeReceipt}>
       <div className="receipt-modal" onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true" aria-label="Order Receipt Confirmation">
         <header className="receipt-modal-header">
           <div className="receipt-header-left"><CheckCircle className="success-icon" size={28} /><div><h2>Invoice ready</h2><span className="order-ref-tag">Ref: #{activeReceipt.orderRef}</span></div></div>
-          <button className="receipt-close-btn" onClick={() => setActiveReceipt(null)} aria-label="Close receipt"><X size={20} /></button>
+          <button className="receipt-close-btn" onClick={closeReceipt} aria-label="Close receipt"><X size={20} /></button>
         </header>
         <div className="receipt-modal-body printable-area">
           <div className="receipt-brand-row"><img src="/images/desert-blooms-logo.png" alt="Desert Blooms" /><div><strong>DESERT BLOOMS</strong><small>AGRICULTURAL CONT. CO. · KUWAIT</small></div><span className="invoice-chip">INVOICE · 1/1</span></div>

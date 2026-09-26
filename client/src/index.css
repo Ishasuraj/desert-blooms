@@ -20,7 +20,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .brand-lockup, .footer-brand { background: transparent; color: var(--ink); display: flex; align-items: center; gap: 12px; padding: 0; cursor: pointer; }
 .brand-mark { width: 42px; height: 42px; object-fit: contain; border-radius: 50%; }
 .brand-wordmark { font-size: 13px; font-weight: 800; letter-spacing: .15em; line-height: .95; text-align: left; }
-.brand-wordmark em { display: block; font-family: 'DM Serif Display', serif; font-size: 14px; font-weight: 400; letter-spacing: .1em; font-style: normal; }
+.brand-wordmark em { display: block; font-family: 'DM Serif Display', serif; font-size: 15px; font-weight: 400; letter-spacing: .12em; font-style: normal; color: var(--terracotta); }
 .main-nav { display: flex; gap: clamp(20px, 3vw, 46px); margin-left: 7vw; }
 .main-nav button, .text-link { color: var(--ink); background: transparent; cursor: pointer; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; transition: color .18s ease, transform .18s var(--ease-out); }
 .main-nav button:hover, .text-link:hover { color: var(--terracotta); transform: translateY(-2px); }

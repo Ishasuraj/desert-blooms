@@ -1,11 +1,13 @@
 import { z } from "zod";
 
 export const ENQUIRY_SERVICES = [
-  "Garden landscaping",
-  "Irrigation systems",
-  "Agricultural services",
-  "Lawn maintenance",
-  "Plant supply & online store",
+  "Indoor Landscaping",
+  "Outdoor Landscaping",
+  "Landscape Design & Installation",
+  "Irrigation Systems",
+  "Landscape Maintenance",
+  "Plants, Palms & Ground Covers",
+  "Tools & Equipment Store",
 ] as const;
 
 export type EnquiryService = (typeof ENQUIRY_SERVICES)[number];

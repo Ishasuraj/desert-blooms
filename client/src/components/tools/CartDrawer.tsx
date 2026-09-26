@@ -1,7 +1,7 @@
-import React, { useState, FormEvent } from "react";
+import React, { useState, useEffect, FormEvent } from "react";
 import { useCart } from "../../contexts/CartContext";
 import { VerifiedOrderReceipt } from "../../types/tool";
-import { X, Trash2, Plus, Minus, MessageCircle, ArrowRight, ShieldCheck, AlertCircle } from "lucide-react";
+import { X, Trash2, Plus, Minus, MessageCircle, ArrowRight, ArrowLeft, ShieldCheck, AlertCircle } from "lucide-react";
 
 export const CartDrawer: React.FC = () => {
   const {
@@ -23,6 +23,30 @@ export const CartDrawer: React.FC = () => {
   const [gotcha, setGotcha] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Trap Mobile OS / Physical Back gesture or Backspace navigation
+  useEffect(() => {
+    if (!isCartOpen) return;
+
+    window.history.pushState({ cartModalOpen: true }, "");
+
+    const handlePopState = () => {
+      setIsCartOpen(false);
+    };
+
+    window.addEventListener("popstate", handlePopState);
+
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, [isCartOpen, setIsCartOpen]);
+
+  const closeCart = () => {
+    setIsCartOpen(false);
+    if (window.history.state?.cartModalOpen) {
+      window.history.back();
+    }
+  };
 
   if (!isCartOpen) return null;
 
@@ -70,7 +94,7 @@ export const CartDrawer: React.FC = () => {
 
       // Order created successfully! Open receipt modal and close drawer
       setActiveReceipt(data as unknown as VerifiedOrderReceipt);
-      setIsCartOpen(false);
+      closeCart();
       clearCart();
     } catch (err) {
       setError(
@@ -82,7 +106,7 @@ export const CartDrawer: React.FC = () => {
   };
 
   return (
-    <div className="cart-drawer-overlay" onClick={() => setIsCartOpen(false)}>
+    <div className="cart-drawer-overlay" onClick={closeCart}>
       <div
         className="cart-drawer"
         onClick={(e) => e.stopPropagation()}
@@ -92,15 +116,21 @@ export const CartDrawer: React.FC = () => {
       >
         <header className="cart-drawer-header">
           <div className="cart-drawer-title">
+            <button
+              onClick={closeCart}
+              className="inline-flex items-center gap-1.5 text-xs text-[#b86745] font-bold uppercase tracking-wider mb-1"
+            >
+              <ArrowLeft size={14} /> Continue Shopping
+            </button>
             <h2>Your Tools Order</h2>
             <span className="cart-count-badge">{totalItems} {totalItems === 1 ? "item" : "items"}</span>
           </div>
           <button
             className="cart-close-btn"
-            onClick={() => setIsCartOpen(false)}
+            onClick={closeCart}
             aria-label="Close cart"
           >
-            <X size={20} />
+            <X size={22} />
           </button>
         </header>
 
@@ -111,7 +141,7 @@ export const CartDrawer: React.FC = () => {
             <p>Select agricultural & gardening tools from our online store to build your order.</p>
             <button
               className="button button-dark"
-              onClick={() => setIsCartOpen(false)}
+              onClick={closeCart}
             >
               Browse Tools Catalog
             </button>

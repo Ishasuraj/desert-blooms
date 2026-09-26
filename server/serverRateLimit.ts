@@ -10,9 +10,9 @@ const MAX_BUCKETS = 10_000;
 export function checkServerRateLimit(key: string, max: number) {
   const now = Date.now();
 
-  for (const [bucketKey, bucket] of buckets) {
+  buckets.forEach((bucket, bucketKey) => {
     if (bucket.resetAt <= now) buckets.delete(bucketKey);
-  }
+  });
 
   if (buckets.size >= MAX_BUCKETS && !buckets.has(key)) {
     return { limited: true, retryAfterSeconds: Math.ceil(WINDOW_MS / 1000) };

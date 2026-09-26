@@ -6,7 +6,7 @@ type EnquiryPayload = Omit<EnquiryInput, "_gotcha">;
 function getMailConfig() {
   const user = process.env.GMAIL_USER?.trim();
   const pass = process.env.GMAIL_APP_PASSWORD?.trim();
-  const to = process.env.ENQUIRY_TO_EMAIL?.trim() || user;
+  const to = process.env.ENQUIRY_TO_EMAIL?.trim() || user || "desertbloooms@gmail.com";
 
   if (!user || !pass || !to) {
     return null;

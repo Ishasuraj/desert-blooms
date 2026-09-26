@@ -20,6 +20,8 @@ import {
 
 const CATEGORIES = ["All Tools", ...Array.from(new Set(TOOLS.map((tool) => tool.category)))];
 
+import { SiteHeader } from "../components/SiteHeader";
+
 export default function ToolsPage() {
   const { totalItems, subtotal, setIsCartOpen } = useCart();
   const [searchTerm, setSearchTerm] = useState("");
@@ -45,40 +47,7 @@ export default function ToolsPage() {
 
   return (
     <div className="tools-page-shell bg-[#f4f0e8] text-[#22352b] min-h-screen">
-      <div className="announcement-bar">
-        <span>Tools & Equipment Store · Express Delivery Across Kuwait</span>
-        <a href={`tel:${contact.phoneTel}`}>
-          Call {contact.phoneDisplay} <ArrowUpRight size={13} />
-        </a>
-      </div>
-
-      <header className="site-header">
-        <a href="/" className="brand-lockup" aria-label="Desert Blooms home">
-          <img src="/images/desert-blooms-logo.png" alt="" className="brand-mark" />
-          <span className="brand-wordmark">
-            DESERT <em>BLOOMS</em>
-          </span>
-        </a>
-
-        <nav className="main-nav is-open" aria-label="Tools navigation">
-          <a href="/">Home</a>
-          <a href="/tools" className="active">Tools Store</a>
-          <a href="/#services">Services</a>
-          <a href="/#contact">Contact</a>
-        </nav>
-
-        <button
-          className="header-cart-btn"
-          onClick={() => setIsCartOpen(true)}
-          aria-label="Open Shopping Cart"
-        >
-          <ShoppingBag size={18} />
-          <span>Cart</span>
-          {totalItems > 0 ? (
-            <span className="header-cart-badge">{totalItems}</span>
-          ) : null}
-        </button>
-      </header>
+      <SiteHeader />
 
       {/* Hero Banner */}
       <section className="tools-hero-banner section-shell">
