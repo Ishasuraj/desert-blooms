@@ -161,8 +161,8 @@ h2 { font-size: clamp(44px, 5.4vw, 76px); }
   .header-cta { display: none; }
   .mobile-menu { display: block; }
   .brand-lockup { flex: 1 1 auto; min-width: 0; }
-  .brand-wordmark { font-size: 12px; max-width: 100%; }
-  .brand-wordmark em { font-size: 13px; }
+  .brand-wordmark { font-size: 13px; max-width: 100%; }
+  .brand-wordmark em { font-size: 14px; }
   .header-actions-group { gap: 8px; }
   .hero-section { min-height: auto; padding: 60px 5vw 82px; gap: 48px; }
   h1 { font-size: clamp(53px, 16vw, 78px); }
