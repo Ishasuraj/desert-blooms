@@ -152,6 +152,8 @@ export const SiteHeader: React.FC<SiteHeaderProps> = ({
               ) : null}
             </button>
 
+            <LanguageSwitcher className="hidden md:inline-flex" />
+
             {onHome ? (
               <button
                 type="button"
