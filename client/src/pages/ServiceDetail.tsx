@@ -275,17 +275,6 @@ export default function ServiceDetail() {
         <p>Landscaping & Agricultural Care · Kuwait</p>
         <span>© 2026 Desert Blooms Agricultural Cont. Co.</span>
       </footer>
-
-      {/* WhatsApp Floating Button */}
-      <a
-        className="whatsapp-float"
-        href={contact.whatsappUrl}
-        target="_blank"
-        rel="noreferrer"
-        aria-label="Contact Desert Blooms on WhatsApp"
-      >
-        <MessageCircle size={21} />
-      </a>
     </div>
   );
 }

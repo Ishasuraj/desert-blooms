@@ -73,9 +73,6 @@ export const SiteHeader: React.FC<SiteHeaderProps> = ({
 
   const closeSidebar = () => {
     setMenuOpen(false);
-    if (window.history.state?.sidebarOpen) {
-      window.history.back();
-    }
   };
 
   const handleNavClick = (sectionId?: string) => {
@@ -135,14 +132,14 @@ export const SiteHeader: React.FC<SiteHeaderProps> = ({
               </>
             ) : (
               <>
-                <a href={homeHash("services")}>{t("header.services")}</a>
-                <a href={homeHash("contact")}>{t("header.contact")}</a>
+                <LocalizedLink href="/#services">{t("header.services")}</LocalizedLink>
+                <LocalizedLink href="/#contact">{t("header.contact")}</LocalizedLink>
               </>
             )}
           </nav>
 
           <div className="header-actions-group">
-            <LanguageSwitcher className="hidden sm:flex" />
+            <LanguageSwitcher className="hidden md:flex" />
 
             <button
               type="button"
@@ -166,9 +163,9 @@ export const SiteHeader: React.FC<SiteHeaderProps> = ({
                 {t("header.planGarden")} <ArrowUpRight size={16} />
               </button>
             ) : (
-              <a href={homeHash("contact")} className="header-cta hidden sm:inline-flex">
+              <LocalizedLink href="/#contact" className="header-cta hidden sm:inline-flex">
                 {t("header.getInTouch")} <ArrowUpRight size={16} />
-              </a>
+              </LocalizedLink>
             )}
 
             <button
@@ -212,7 +209,7 @@ export const SiteHeader: React.FC<SiteHeaderProps> = ({
               </div>
 
               <div className="py-4">
-                <LanguageSwitcher className="lang-switcher--mobile w-full justify-center" />
+                <LanguageSwitcher className="lang-switcher--mobile w-full justify-center mt-1" />
               </div>
 
               <div className="py-4 flex flex-col gap-2">
@@ -289,8 +286,8 @@ export const SiteHeader: React.FC<SiteHeaderProps> = ({
                     </button>
                   </>
                 ) : (
-                  <a
-                    href={homeHash("services")}
+                  <LocalizedLink
+                    href="/#services"
                     onClick={closeSidebar}
                     className="flex items-center justify-between p-3 rounded-md text-[#d8e0d5] hover:bg-white/5 transition-colors"
                   >
@@ -299,7 +296,7 @@ export const SiteHeader: React.FC<SiteHeaderProps> = ({
                       <span>{t("header.services")}</span>
                     </div>
                     <ChevronRight size={16} className="opacity-50 nav-chevron" />
-                  </a>
+                  </LocalizedLink>
                 )}
               </div>
             </div>
@@ -314,13 +311,13 @@ export const SiteHeader: React.FC<SiteHeaderProps> = ({
                   {t("header.planGarden")} <ArrowUpRight size={16} />
                 </button>
               ) : (
-                <a
-                  href={homeHash("contact")}
+                <LocalizedLink
+                  href="/#contact"
                   onClick={closeSidebar}
                   className="w-full py-3.5 bg-[#b86745] hover:bg-[#a45637] text-white text-xs font-bold uppercase tracking-wider rounded flex items-center justify-center gap-2 shadow-md transition-colors"
                 >
                   {t("header.getInTouch")} <ArrowUpRight size={16} />
-                </a>
+                </LocalizedLink>
               )}
 
               <div className="space-y-2 text-xs text-[#b7c1b3] pt-1">
