@@ -141,7 +141,7 @@ export const SiteHeader: React.FC<SiteHeaderProps> = ({
           <div className="header-actions-group">
             <button
               type="button"
-              className="header-cart-btn"
+              className="header-cart-btn hidden sm:inline-flex"
               onClick={() => setIsCartOpen(true)}
               aria-label={t("header.openCart")}
             >
@@ -246,6 +246,26 @@ export const SiteHeader: React.FC<SiteHeaderProps> = ({
                   </div>
                   <ChevronRight size={16} className="opacity-50 nav-chevron" />
                 </LocalizedLink>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    closeSidebar();
+                    setIsCartOpen(true);
+                  }}
+                  className="flex items-center justify-between p-3 rounded-md text-[#d8e0d5] hover:bg-white/5 transition-colors text-start"
+                >
+                  <div className="flex items-center gap-3 text-sm">
+                    <ShoppingBag size={18} className="text-[#d37a55]" />
+                    <span>{t("header.cart")}</span>
+                    {totalItems > 0 ? (
+                      <span className="ml-1 rounded-full bg-[#d37a55] px-1.5 py-0.5 text-[10px] font-bold text-[#22352b]">
+                        {totalItems}
+                      </span>
+                    ) : null}
+                  </div>
+                  <ChevronRight size={16} className="opacity-50 nav-chevron" />
+                </button>
 
                 {onHome ? (
                   <>
