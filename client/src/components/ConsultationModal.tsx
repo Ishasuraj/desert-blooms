@@ -13,10 +13,19 @@ export function ConsultationModal({
   onClose,
   defaultService = "",
 }: ConsultationModalProps) {
+  const canonicalDefaultService =
+    ENQUIRY_SERVICES.find(
+      (service) => service.toLowerCase() === defaultService.trim().toLowerCase(),
+    ) ??
+    ENQUIRY_SERVICES.find(
+      (service) => service.toLowerCase().replace(/[^a-z]/g, "") === defaultService.trim().toLowerCase().replace(/[^a-z]/g, ""),
+    ) ??
+    defaultService;
+
   const [form, setForm] = useState({
     name: "",
     email: "",
-    service: defaultService,
+    service: canonicalDefaultService,
     message: "",
     _gotcha: "",
   });
@@ -26,9 +35,9 @@ export function ConsultationModal({
 
   useEffect(() => {
     if (defaultService) {
-      setForm((prev) => ({ ...prev, service: defaultService }));
+      setForm((prev) => ({ ...prev, service: canonicalDefaultService }));
     }
-  }, [defaultService]);
+  }, [defaultService, canonicalDefaultService]);
 
   useEffect(() => {
     if (!isOpen) return;

@@ -12,6 +12,19 @@ export const ENQUIRY_SERVICES = [
 
 export type EnquiryService = (typeof ENQUIRY_SERVICES)[number];
 
+const normalizeService = (value: unknown) => {
+  if (typeof value !== "string") return value;
+
+  const trimmed = value.trim();
+  if (!trimmed) return value;
+
+  const matchedService = ENQUIRY_SERVICES.find(
+    (service) => service.toLowerCase() === trimmed.toLowerCase(),
+  );
+
+  return matchedService ?? trimmed;
+};
+
 export const enquirySchema = z.object({
   name: z
     .string()
@@ -23,7 +36,7 @@ export const enquirySchema = z.object({
     .trim()
     .email("Enter a valid email address")
     .max(254, "Email must be 254 characters or fewer"),
-  service: z.enum(ENQUIRY_SERVICES),
+  service: z.preprocess(normalizeService, z.enum(ENQUIRY_SERVICES)),
   message: z
     .string()
     .trim()
