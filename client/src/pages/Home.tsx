@@ -2,7 +2,7 @@
  * Desert Botanical Editorial direction: a calm, tactile Kuwait landscaping experience.
  */
 import { contact } from "@/contact";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useCart } from "@/contexts/CartContext";
 import { useLocale } from "@/contexts/LocaleContext";
 import { CartDrawer } from "@/components/tools/CartDrawer";
@@ -55,14 +55,67 @@ const initialForm = {
   _gotcha: "",
 };
 
+const INTRO_STORAGE_KEY = "desert-blooms-intro-seen";
+
 export default function Home() {
   const { t, locale, localePath } = useLocale();
   const [form, setForm] = useState(initialForm);
   const [sent, setSent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showIntro, setShowIntro] = useState(() => {
+    if (typeof window === "undefined") return false;
+    const mediaQuery = window.matchMedia?.("(prefers-reduced-motion: reduce)");
+    if (mediaQuery?.matches) return false;
+    try {
+      return window.sessionStorage.getItem(INTRO_STORAGE_KEY) !== "true";
+    } catch {
+      return true;
+    }
+  });
 
   useCart();
+
+  useEffect(() => {
+    if (!showIntro) {
+      try {
+        window.sessionStorage.setItem(INTRO_STORAGE_KEY, "true");
+      } catch {
+        // no-op: browser storage may be unavailable
+      }
+      return;
+    }
+
+    const mediaQuery = window.matchMedia?.("(prefers-reduced-motion: reduce)");
+    if (mediaQuery?.matches) {
+      setShowIntro(false);
+      return;
+    }
+
+    const closeIntro = () => {
+      setShowIntro(false);
+      try {
+        window.sessionStorage.setItem(INTRO_STORAGE_KEY, "true");
+      } catch {
+        // no-op: browser storage may be unavailable
+      }
+    };
+
+    const timer = window.setTimeout(closeIntro, 2300);
+    return () => window.clearTimeout(timer);
+  }, [showIntro]);
+
+  const dismissIntro = () => {
+    setShowIntro(false);
+    try {
+      window.sessionStorage.setItem(INTRO_STORAGE_KEY, "true");
+    } catch {
+      // no-op: browser storage may be unavailable
+    }
+  };
+
+  const introBrand = locale === "ar" ? "ديزرت بلومز" : "DESERT BLOOMS";
+  const skipIntroLabel = locale === "ar" ? "تخطي المقدمة" : "Skip intro";
 
   const featuredTools = TOOLS.slice(0, 6);
   const displayAddress =
@@ -116,55 +169,81 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen overflow-hidden bg-[#f4f0e8] text-[#22352b]">
-      <SiteHeader onNavigateSection={scrollTo} />
+    <>
+      {showIntro && (
+        <div
+          className="home-intro-overlay"
+          role="dialog"
+          aria-live="polite"
+          aria-modal="false"
+          aria-label={skipIntroLabel}
+          dir={locale === "ar" ? "rtl" : "ltr"}
+        >
+          <button
+            type="button"
+            className="home-intro-skip"
+            onClick={dismissIntro}
+            aria-label={skipIntroLabel}
+          >
+            {skipIntroLabel}
+          </button>
 
-      <section id="top" className="hero-section">
-        <div className="hero-copy">
-          <p className="eyebrow">
-            <span className="eyebrow-line" />{" "}
-            <strong className="text-[#b86745] font-bold">DESERT BLOOMS</strong> ·{" "}
-            {locale === "en"
-              ? "Landscaping & Agricultural Care · Kuwait"
-              : "تنسيق المناظر والعناية الزراعية · الكويت"}
-          </p>
-          {locale === "en" ? (
-            <h1>
-              Make room for a <i>better</i> kind of outdoors.
-            </h1>
-          ) : (
-            <h1>{t("home.heroTitle")}</h1>
-          )}
-          <p className="hero-description">{t("home.heroDescription")}</p>
-          <div className="hero-actions">
-            <LocalizedLink href="/tools" className="button button-dark">
-              {t("home.shopTools")} <ArrowUpRight size={17} />
-            </LocalizedLink>
-            <button type="button" className="text-link" onClick={() => scrollTo("overview")}>
-              {t("home.learnAbout")} <ArrowDownRight size={16} />
-            </button>
-          </div>
-          <div className="hero-note">
-            <span>{t("home.heroNoteNum")}</span>
-            <span className="note-rule" />
-            <span style={{ whiteSpace: "pre-line" }}>{t("home.heroNoteText")}</span>
+          <div className="home-intro-content" aria-hidden="true">
+            <div className="home-intro-wordmark">{introBrand}</div>
+            <img src={brandMark} alt="" className="home-intro-logo" />
           </div>
         </div>
-        <div className="hero-image-wrap">
-          <img src={heroImage} alt={t("home.heroImgAlt")} className="hero-image" />
-          <div className="hero-image-caption">
-            <span>{t("home.heroCaptionFig")}</span>
-            <span>{t("home.heroCaptionText")}</span>
-          </div>
-          <div className="hero-stamp">
-            <span>{t("home.heroStampEst")}</span>
-            <strong>DB</strong>
-            <span>{t("home.heroStampKuwait")}</span>
-          </div>
-        </div>
-      </section>
+      )}
 
-      <section className="field-note-strip">
+      <main className="min-h-screen overflow-hidden bg-[#f4f0e8] text-[#22352b]">
+        <SiteHeader onNavigateSection={scrollTo} />
+
+        <section id="top" className="hero-section">
+          <div className="hero-copy">
+            <p className="eyebrow">
+              <span className="eyebrow-line" />{" "}
+              <strong className="text-[#b86745] font-bold">DESERT BLOOMS</strong> ·{" "}
+              {locale === "en"
+                ? "Landscaping & Agricultural Care · Kuwait"
+                : "تنسيق المناظر والعناية الزراعية · الكويت"}
+            </p>
+            {locale === "en" ? (
+              <h1>
+                Make room for a <i>better</i> kind of outdoors.
+              </h1>
+            ) : (
+              <h1>{t("home.heroTitle")}</h1>
+            )}
+            <p className="hero-description">{t("home.heroDescription")}</p>
+            <div className="hero-actions">
+              <LocalizedLink href="/tools" className="button button-dark">
+                {t("home.shopTools")} <ArrowUpRight size={17} />
+              </LocalizedLink>
+              <button type="button" className="text-link" onClick={() => scrollTo("overview")}>
+                {t("home.learnAbout")} <ArrowDownRight size={16} />
+              </button>
+            </div>
+            <div className="hero-note">
+              <span>{t("home.heroNoteNum")}</span>
+              <span className="note-rule" />
+              <span style={{ whiteSpace: "pre-line" }}>{t("home.heroNoteText")}</span>
+            </div>
+          </div>
+          <div className="hero-image-wrap">
+            <img src={heroImage} alt={t("home.heroImgAlt")} className="hero-image" />
+            <div className="hero-image-caption">
+              <span>{t("home.heroCaptionFig")}</span>
+              <span>{t("home.heroCaptionText")}</span>
+            </div>
+            <div className="hero-stamp">
+              <span>{t("home.heroStampEst")}</span>
+              <strong>DB</strong>
+              <span>{t("home.heroStampKuwait")}</span>
+            </div>
+          </div>
+        </section>
+
+        <section className="field-note-strip">
         <div className="field-note-label">{t("home.fieldNoteLabel")}</div>
         <p>{t("home.fieldNoteBody")}</p>
         <div className="field-note-symbol">✳</div>
@@ -543,16 +622,17 @@ export default function Home() {
       <CartDrawer />
       <ReceiptModal />
 
-      <footer className="site-footer">
-        <div className="footer-brand">
-          <img src={brandMark} alt="" className="brand-mark" />
-          <span className="brand-wordmark">
-            DESERT <em>BLOOMS</em>
-          </span>
-        </div>
-        <p>{t("footer.tagline")}</p>
-        <span>{t("footer.copyright")}</span>
-      </footer>
-    </main>
+        <footer className="site-footer">
+          <div className="footer-brand">
+            <img src={brandMark} alt="" className="brand-mark" />
+            <span className="brand-wordmark">
+              DESERT <em>BLOOMS</em>
+            </span>
+          </div>
+          <p>{t("footer.tagline")}</p>
+          <span>{t("footer.copyright")}</span>
+        </footer>
+      </main>
+    </>
   );
 }

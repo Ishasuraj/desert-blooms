@@ -215,7 +215,128 @@ h2 { font-size: clamp(44px, 5.4vw, 76px); }
 .not-found-copy { max-width: 375px; margin: 28px 0 32px; color: #6d7b6e; font-size: 14px; line-height: 1.7; }
 .not-found-footer { padding-top: 22px; border-top: 1px solid var(--border); }
 @media (max-width: 640px) { .not-found-page { padding: 24px 5vw; } .not-found-topline, .not-found-footer { font-size: 8px; gap: 20px; } .not-found-topline span:last-child, .not-found-footer span:last-child { text-align: right; } .not-found-content { margin: auto 0; padding: 70px 0; } .not-found-content h1 { font-size: 60px; } .not-found-copy { font-size: 13px; } }
-@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; } }
+.home-intro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  background: rgba(244, 240, 232, 0.96);
+  backdrop-filter: blur(4px);
+  transition: opacity 0.55s ease, visibility 0.55s ease;
+}
+
+.home-intro-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.3rem;
+  animation: introFadeUp 2.2s ease forwards;
+}
+
+.home-intro-wordmark {
+  color: var(--primary);
+  font-size: clamp(1.8rem, 4vw, 4rem);
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1;
+  transform: translateY(14px);
+  opacity: 0;
+  animation: introTextReveal 0.8s ease 0s forwards;
+}
+
+.home-intro-logo {
+  width: clamp(96px, 16vw, 160px);
+  height: clamp(96px, 16vw, 160px);
+  object-fit: contain;
+  border-radius: 999px;
+  opacity: 0;
+  transform: translateY(18px) scale(0.96);
+  animation: introLogoReveal 0.9s ease 0.5s forwards;
+}
+
+.home-intro-skip {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  z-index: 2;
+  padding: 0.6rem 0.9rem;
+  border: 1px solid rgba(49, 88, 66, 0.2);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.5);
+  color: var(--primary);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease, outline-color 0.2s ease;
+}
+
+.home-intro-skip:hover {
+  background: rgba(255, 255, 255, 0.75);
+}
+
+.home-intro-skip:focus-visible {
+  outline: 2px solid var(--terracotta);
+  outline-offset: 4px;
+}
+
+@keyframes introTextReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes introLogoReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(22px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes introFadeUp {
+  0%, 68% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-12px) scale(1.02);
+  }
+}
+
+@media (max-width: 640px) {
+  .home-intro-wordmark {
+    letter-spacing: 0.12em;
+    white-space: nowrap;
+  }
+
+  .home-intro-skip {
+    top: 0.9rem;
+    right: 0.9rem;
+    font-size: 0.64rem;
+    letter-spacing: 0.1em;
+  }
+}
+
+html[dir="rtl"] .home-intro-wordmark {
+  font-family: "IBM Plex Sans Arabic", "Manrope", sans-serif;
+}
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; } .home-intro-overlay { display: none !important; } }
 
 /* ==========================================
    TOOLS ONLINE STORE & CART DRAWER STYLES
