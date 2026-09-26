@@ -18,9 +18,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .announcement-bar { min-height: 34px; padding: 0 4.8vw; background: var(--primary); color: #e6e1d6; display: flex; justify-content: space-between; align-items: center; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
 .announcement-bar a { color: inherit; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
 .site-header { height: 86px; padding: 0 4.8vw; display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 10; border-bottom: 1px solid rgba(49,88,66,.13); }
-.brand-lockup, .footer-brand { background: transparent; color: var(--ink); display: flex; align-items: center; gap: 12px; padding: 0; cursor: pointer; }
-.brand-mark { width: 42px; height: 42px; object-fit: contain; border-radius: 50%; }
-.brand-wordmark { font-size: 13px; font-weight: 800; letter-spacing: .15em; line-height: .95; text-align: left; }
+.brand-lockup, .footer-brand { background: transparent; color: var(--ink); display: flex; align-items: center; gap: 12px; padding: 0; cursor: pointer; min-width: 0; }
+.brand-mark { width: 42px; height: 42px; object-fit: contain; border-radius: 50%; flex-shrink: 0; }
+.brand-wordmark { font-size: 13px; font-weight: 800; letter-spacing: .15em; line-height: .95; text-align: left; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .brand-wordmark em { display: block; font-family: 'DM Serif Display', serif; font-size: 15px; font-weight: 400; letter-spacing: .12em; font-style: normal; color: var(--terracotta); }
 .main-nav { display: flex; gap: clamp(20px, 3vw, 46px); margin-left: 7vw; }
 .main-nav button, .text-link { color: var(--ink); background: transparent; cursor: pointer; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; transition: color .18s ease, transform .18s var(--ease-out); }
@@ -160,8 +160,10 @@ h2 { font-size: clamp(44px, 5.4vw, 76px); }
   .main-nav.is-open { display: flex; }
   .header-cta { display: none; }
   .mobile-menu { display: block; }
-  .brand-wordmark { font-size: 11px; }
+  .brand-lockup { flex: 1 1 auto; min-width: 0; }
+  .brand-wordmark { font-size: 11px; max-width: 100%; }
   .brand-wordmark em { font-size: 12px; }
+  .header-actions-group { gap: 8px; }
   .hero-section { min-height: auto; padding: 60px 5vw 82px; gap: 48px; }
   h1 { font-size: clamp(53px, 16vw, 78px); }
   .hero-description { font-size: 13px; }
@@ -219,7 +221,7 @@ h2 { font-size: clamp(44px, 5.4vw, 76px); }
    TOOLS ONLINE STORE & CART DRAWER STYLES
    ========================================== */
 
-.header-actions-group { display: flex; align-items: center; gap: 14px; }
+.header-actions-group { display: flex; align-items: center; gap: 14px; min-width: 0; }
 .header-cart-btn {
   padding: 10px 16px;
   background: var(--primary);

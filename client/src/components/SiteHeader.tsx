@@ -101,7 +101,7 @@ export const SiteHeader: React.FC<SiteHeaderProps> = ({
         <header className="site-header relative">
           <LocalizedLink href="/" className="brand-lockup" aria-label={t("header.homeAria")}>
             <img src="/images/desert-blooms-logo.png" alt="" className="brand-mark" />
-            <span className="brand-wordmark">
+            <span className="brand-wordmark" aria-label="Desert Blooms">
               DESERT <em>BLOOMS</em>
             </span>
           </LocalizedLink>
