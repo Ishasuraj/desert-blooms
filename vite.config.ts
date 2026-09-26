@@ -154,90 +154,6 @@ function vitePluginManusDebugCollector(): Plugin {
   };
 }
 
-function vitePluginEnquiryApi(): Plugin {
-  return {
-    name: "desert-blooms-enquiry-api",
-    configureServer(server: ViteDevServer) {
-      server.middlewares.use("/api/enquiry", async (req, res, next) => {
-        if (req.method !== "POST") {
-          return next();
-        }
-
-        const clientIp = getClientIp(req);
-        if (isRateLimited(`enquiry:${clientIp}`, 5, 15 * 60 * 1000)) {
-          res.writeHead(429, { "Content-Type": "application/json" });
-          res.end(
-            JSON.stringify({
-              message:
-                "Too many enquiries from this address. Please try again later.",
-            }),
-          );
-          return;
-        }
-
-        try {
-          const body = await readJsonBody(req);
-          const result = await processEnquiry(body, clientIp);
-
-          if (!result.ok) {
-            res.writeHead(result.status, { "Content-Type": "application/json" });
-            res.end(JSON.stringify({ message: result.message }));
-            return;
-          }
-
-          res.writeHead(200, { "Content-Type": "application/json" });
-          res.end(JSON.stringify({ message: "Enquiry sent successfully" }));
-        } catch {
-          res.writeHead(400, { "Content-Type": "application/json" });
-          res.end(JSON.stringify({ message: "Invalid enquiry submission" }));
-        }
-      });
-    },
-  };
-}
-
-function vitePluginOrderApi(): Plugin {
-  return {
-    name: "desert-blooms-order-api",
-    configureServer(server: ViteDevServer) {
-      server.middlewares.use("/api/order/create", async (req, res, next) => {
-        if (req.method !== "POST") {
-          return next();
-        }
-
-        const clientIp = getClientIp(req);
-        if (isRateLimited(`order:${clientIp}`, 10, 15 * 60 * 1000)) {
-          res.writeHead(429, { "Content-Type": "application/json" });
-          res.end(
-            JSON.stringify({
-              message:
-                "Too many order requests from this address. Please try again in a few minutes.",
-            }),
-          );
-          return;
-        }
-
-        try {
-          const body = await readJsonBody(req);
-          const result = await processOrder(body, clientIp);
-
-          if (!result.ok) {
-            res.writeHead(result.status, { "Content-Type": "application/json" });
-            res.end(JSON.stringify({ message: result.message }));
-            return;
-          }
-
-          res.writeHead(200, { "Content-Type": "application/json" });
-          res.end(JSON.stringify(result.receipt));
-        } catch {
-          res.writeHead(400, { "Content-Type": "application/json" });
-          res.end(JSON.stringify({ message: "Invalid order submission" }));
-        }
-      });
-    },
-  };
-}
-
 function vitePluginStorageProxy(): Plugin {
   return {
     name: "manus-storage-proxy",
@@ -291,7 +207,7 @@ function vitePluginStorageProxy(): Plugin {
   };
 }
 
-const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector(), vitePluginEnquiryApi(), vitePluginOrderApi(), vitePluginStorageProxy()];
+const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector(), vitePluginStorageProxy()];
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, path.resolve(import.meta.dirname), "");
@@ -314,8 +230,15 @@ export default defineConfig(({ mode }) => {
   },
   server: {
     port: 3000,
-    strictPort: false, // Will find next available port if 3000 is busy
+    strictPort: false,
     host: true,
+    proxy: {
+      "/api": {
+        target: "http://localhost:3001",
+        changeOrigin: true,
+        secure: false,
+      },
+    },
     allowedHosts: [
       ".manuspre.computer",
       ".manus.computer",

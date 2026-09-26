@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { Tool } from "../../types/tool";
 import { useCart } from "../../contexts/CartContext";
-import { ShoppingBag, Plus, Minus, Check } from "lucide-react";
+import { ShoppingBag, Plus, Minus } from "lucide-react";
 
 interface ToolCardProps {
   tool: Tool;
@@ -9,23 +9,23 @@ interface ToolCardProps {
 
 export const ToolCard: React.FC<ToolCardProps> = ({ tool }) => {
   const { addToCart, cartItems, updateQuantity } = useCart();
-  const [selectedQty, setSelectedQty] = useState(1);
-  const [added, setAdded] = useState(false);
 
   const existingInCart = cartItems.find((item) => item.tool.id === tool.id);
 
   const handleAdd = () => {
-    addToCart(tool, selectedQty);
-    setAdded(true);
-    setTimeout(() => setAdded(false), 1500);
+    addToCart(tool, 1);
   };
 
   const handleIncrement = () => {
-    setSelectedQty((prev) => Math.min(prev + 1, 99));
+    if (existingInCart) {
+      updateQuantity(tool.id, existingInCart.quantity + 1);
+    }
   };
 
   const handleDecrement = () => {
-    setSelectedQty((prev) => Math.max(prev - 1, 1));
+    if (existingInCart) {
+      updateQuantity(tool.id, existingInCart.quantity - 1);
+    }
   };
 
   return (
@@ -53,54 +53,32 @@ export const ToolCard: React.FC<ToolCardProps> = ({ tool }) => {
         </div>
 
         <div className="tool-actions-row">
-          <div className="qty-picker">
-            <button
-              type="button"
-              className="qty-btn"
-              onClick={handleDecrement}
-              aria-label="Decrease quantity"
-            >
-              <Minus size={14} />
+          {existingInCart ? (
+            <div className="qty-picker qty-picker-active">
+              <button
+                type="button"
+                className="qty-btn"
+                onClick={handleDecrement}
+                aria-label="Decrease quantity"
+              >
+                <Minus size={14} />
+              </button>
+              <span className="qty-display">{existingInCart.quantity}</span>
+              <button
+                type="button"
+                className="qty-btn"
+                onClick={handleIncrement}
+                aria-label="Increase quantity"
+              >
+                <Plus size={14} />
+              </button>
+            </div>
+          ) : (
+            <button type="button" className="add-cart-btn" onClick={handleAdd}>
+              <ShoppingBag size={16} /> Add to Cart
             </button>
-            <span className="qty-display">{selectedQty}</span>
-            <button
-              type="button"
-              className="qty-btn"
-              onClick={handleIncrement}
-              aria-label="Increase quantity"
-            >
-              <Plus size={14} />
-            </button>
-          </div>
-
-          <button
-            type="button"
-            className={`add-cart-btn ${added ? "is-added" : ""}`}
-            onClick={handleAdd}
-          >
-            {added ? (
-              <>
-                <Check size={16} /> Added
-              </>
-            ) : (
-              <>
-                <ShoppingBag size={16} /> Add to Cart
-              </>
-            )}
-          </button>
+          )}
         </div>
-
-        {existingInCart ? (
-          <div className="in-cart-indicator">
-            <span>In cart: <strong>{existingInCart.quantity}</strong></span>
-            <button
-              onClick={() => updateQuantity(tool.id, existingInCart.quantity + 1)}
-              className="quick-add-link"
-            >
-              + Add another
-            </button>
-          </div>
-        ) : null}
       </div>
     </article>
   );

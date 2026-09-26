@@ -150,9 +150,22 @@ export default function Home() {
         body: JSON.stringify(form),
       });
 
-      const data = (await response.json()) as { message?: string };
+      const responseText = await response.text();
+      let data: { message?: string } | null = null;
+
+      if (responseText) {
+        try {
+          data = JSON.parse(responseText) as { message?: string };
+        } catch {
+          data = null;
+        }
+      }
+
       if (!response.ok) {
-        throw new Error(data.message ?? t("home.formErrorGeneric"));
+        throw new Error(
+          data?.message ??
+            (responseText ? responseText : t("home.formErrorGeneric")),
+        );
       }
 
       setSent(true);
@@ -243,16 +256,16 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="field-note-strip">
-        <div className="field-note-label">{t("home.fieldNoteLabel")}</div>
-        <p>{t("home.fieldNoteBody")}</p>
-        <div className="field-note-symbol">✳</div>
-      </section>
+          <section className="field-note-strip">
+          <div className="field-note-label">{t("home.fieldNoteLabel")}</div>
+          <p>{t("home.fieldNoteBody")}</p>
+          <div className="field-note-symbol">✳</div>
+        </section>
 
-      <section id="overview" className="company-overview-section section-shell py-20 border-b border-[#d8d0c1]">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center mb-16">
-            <div className="lg:col-span-7">
+        <section id="overview" className="company-overview-section section-shell py-20 border-b border-[#d8d0c1]">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center mb-16">
+              <div className="lg:col-span-7">
               <p className="eyebrow">
                 <span className="eyebrow-line" /> {t("home.overviewEyebrow")}
               </p>
@@ -619,8 +632,8 @@ export default function Home() {
         </div>
       </section>
 
-      <CartDrawer />
-      <ReceiptModal />
+        <CartDrawer />
+        <ReceiptModal />
 
         <footer className="site-footer">
           <div className="footer-brand">
