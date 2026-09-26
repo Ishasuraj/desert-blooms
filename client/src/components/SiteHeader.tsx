@@ -139,8 +139,6 @@ export const SiteHeader: React.FC<SiteHeaderProps> = ({
           </nav>
 
           <div className="header-actions-group">
-            <LanguageSwitcher className="hidden md:flex" />
-
             <button
               type="button"
               className="header-cart-btn"
