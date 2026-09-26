@@ -1,10 +1,13 @@
 import React, { useState } from "react";
-import { useParams, Link, Redirect } from "wouter";
-import { SERVICES, Service } from "@/data/services";
+import { useParams, Redirect } from "wouter";
+import { SERVICES } from "@/data/services";
 import { CartDrawer } from "@/components/tools/CartDrawer";
 import { ReceiptModal } from "@/components/tools/ReceiptModal";
 import { ConsultationModal } from "@/components/ConsultationModal";
 import { useCart } from "@/contexts/CartContext";
+import { useLocale } from "@/contexts/LocaleContext";
+import { LocalizedLink } from "@/components/LocalizedLink";
+import { getLocalizedService } from "@/i18n/servicesLocalized";
 import { contact } from "@/contact";
 import {
   ArrowLeft,
@@ -25,11 +28,13 @@ import { SiteHeader } from "@/components/SiteHeader";
 export default function ServiceDetail() {
   const params = useParams<{ slug: string }>();
   const slug = params?.slug;
+  const { t, locale } = useLocale();
 
-  const service = SERVICES.find((s) => s.slug === slug);
+  const baseService = SERVICES.find((s) => s.slug === slug);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { totalItems, setIsCartOpen } = useCart();
+  const service = baseService ? getLocalizedService(baseService, locale) : undefined;
 
   if (!service) {
     return <Redirect to="/" />;
@@ -44,9 +49,9 @@ export default function ServiceDetail() {
         {/* Back Link & Breadcrumb Strip */}
         <div className="section-shell pt-8 pb-4">
           <div className="flex items-center gap-3 text-xs tracking-widest uppercase text-[#738072]">
-            <Link href="/#services" className="inline-flex items-center gap-2 hover:text-[#b86745] transition-colors">
-              <ArrowLeft size={14} /> Back to Services
-            </Link>
+            <LocalizedLink href="/#services" className="inline-flex items-center gap-2 hover:text-[#b86745] transition-colors">
+              <ArrowLeft size={14} /> {t("serviceDetail.backToServices")}
+            </LocalizedLink>
             <span>/</span>
             <span className="text-[#b86745] font-semibold">{service.title}</span>
           </div>
@@ -66,7 +71,7 @@ export default function ServiceDetail() {
               <div className="absolute bottom-6 left-6 right-6 text-white flex justify-between items-end">
                 <div>
                   <span className="text-xs tracking-widest uppercase text-[#d8c8ac] font-bold">
-                    SERVICE /{service.number} · FIG. 01
+                    {t("serviceDetail.serviceFig", { num: service.number })}
                   </span>
                   <h1 className="text-3xl lg:text-5xl font-serif text-[#f4f0e8] mt-1 leading-tight">
                     {service.title}
@@ -89,9 +94,9 @@ export default function ServiceDetail() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                 <div className="absolute bottom-4 left-4 right-4 text-white flex justify-between items-center text-xs tracking-wider uppercase font-medium">
-                  <span className="text-[#e8dfce]">Fig. 02 · Project Context</span>
+                  <span className="text-[#e8dfce]">{t("serviceDetail.fig02")}</span>
                   <span className="bg-[#315842]/80 backdrop-blur-sm px-2.5 py-1 rounded text-[10px] text-[#e8dfce]">
-                    Kuwait Site
+                    {t("serviceDetail.kuwaitSite")}
                   </span>
                 </div>
               </div>
@@ -105,7 +110,7 @@ export default function ServiceDetail() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                 <div className="absolute bottom-4 left-4 right-4 text-white flex justify-between items-center text-xs tracking-wider uppercase font-medium">
-                  <span className="text-[#e8dfce]">Fig. 03 · Execution & Detail</span>
+                  <span className="text-[#e8dfce]">{t("serviceDetail.fig03")}</span>
                   <span className="bg-[#b86745]/90 backdrop-blur-sm px-2.5 py-1 rounded text-[10px] text-white font-bold">
                     Desert Blooms
                   </span>
@@ -119,10 +124,10 @@ export default function ServiceDetail() {
         <section className="section-shell py-10">
           <div className="max-w-4xl">
             <p className="eyebrow">
-              <span className="eyebrow-line" /> Service Overview
+              <span className="eyebrow-line" /> {t("serviceDetail.overviewEyebrow")}
             </p>
             <h2 className="text-3xl lg:text-5xl font-serif text-[#22352b] mb-6">
-              Thoughtfully planned. <i>Expertly executed.</i>
+              {t("serviceDetail.overviewTitle")} <i>{t("serviceDetail.overviewTitleEm")}</i>
             </h2>
             <p className="text-lg lg:text-xl text-[#4a584c] leading-relaxed font-sans font-medium">
               {service.intro}
@@ -141,8 +146,8 @@ export default function ServiceDetail() {
                     <Leaf size={20} />
                   </div>
                   <div>
-                    <span className="text-xs tracking-widest text-[#b86745] uppercase font-bold">Scope of Work</span>
-                    <h3 className="text-2xl font-serif text-[#22352b]">What’s Included</h3>
+                    <span className="text-xs tracking-widest text-[#b86745] uppercase font-bold">{t("serviceDetail.scopeLabel")}</span>
+                    <h3 className="text-2xl font-serif text-[#22352b]">{t("serviceDetail.scopeTitle")}</h3>
                   </div>
                 </div>
 
@@ -165,8 +170,8 @@ export default function ServiceDetail() {
                     <Check size={20} strokeWidth={2.5} />
                   </div>
                   <div>
-                    <span className="text-xs tracking-widest text-[#d37a55] uppercase font-bold">Outcomes & Value</span>
-                    <h3 className="text-2xl font-serif text-[#f1eadf]">Why It Matters</h3>
+                    <span className="text-xs tracking-widest text-[#d37a55] uppercase font-bold">{t("serviceDetail.outcomesLabel")}</span>
+                    <h3 className="text-2xl font-serif text-[#f1eadf]">{t("serviceDetail.outcomesTitle")}</h3>
                   </div>
                 </div>
 
@@ -190,9 +195,9 @@ export default function ServiceDetail() {
           <section className="section-shell py-12">
             <div className="p-8 lg:p-12 rounded-lg bg-[#e6e0d3] border border-[#d8d0c1]">
               <div className="mb-8">
-                <p className="eyebrow">Methodology</p>
+                <p className="eyebrow">{t("serviceDetail.methodology")}</p>
                 <h3 className="text-3xl lg:text-4xl font-serif text-[#22352b]">
-                  Our <i>Design & Execution</i> Process
+                  {t("serviceDetail.processTitle")}
                 </h3>
               </div>
 
@@ -223,26 +228,26 @@ export default function ServiceDetail() {
           <div className="p-8 lg:p-14 rounded-lg bg-[#315842] text-center text-[#f1eadf] relative overflow-hidden shadow-md">
             <div className="max-w-2xl mx-auto relative z-10">
               <span className="text-xs tracking-widest text-[#d37a55] uppercase font-bold block mb-3">
-                Let’s Put Down Roots
+                {t("serviceDetail.ctaEyebrow")}
               </span>
               <h2 className="text-3xl lg:text-5xl font-serif text-[#f1eadf] mb-6 leading-tight">
                 {service.cta}
               </h2>
               <p className="text-sm lg:text-base text-[#b7c1b3] mb-8 max-w-lg mx-auto">
-                Speak directly with our team to discuss your site conditions, layout vision, and specific requirements in Kuwait.
+                {t("serviceDetail.ctaBody")}
               </p>
               <div className="flex flex-wrap items-center justify-center gap-4">
                 <button
                   onClick={() => setIsModalOpen(true)}
                   className="px-8 py-4 bg-[#b86745] hover:bg-[#a45637] text-white text-xs tracking-widest uppercase font-semibold rounded inline-flex items-center gap-2 transition-transform duration-200 hover:-translate-y-0.5 cursor-pointer"
                 >
-                  Request Free Consultation <ArrowUpRight size={17} />
+                  {t("serviceDetail.requestConsultation")} <ArrowUpRight size={17} />
                 </button>
                 <a
                   href={`tel:${contact.phoneTel}`}
                   className="px-8 py-4 bg-[#22352b] hover:bg-[#1a2921] text-white text-xs tracking-widest uppercase font-semibold rounded inline-flex items-center gap-2 transition-transform duration-200 hover:-translate-y-0.5"
                 >
-                  <Phone size={16} /> Call {contact.phoneDisplay}
+                  <Phone size={16} /> {t("serviceDetail.call")} {contact.phoneDisplay}
                 </a>
               </div>
             </div>

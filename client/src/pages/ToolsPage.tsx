@@ -21,9 +21,11 @@ import {
 const CATEGORIES = ["All Tools", ...Array.from(new Set(TOOLS.map((tool) => tool.category)))];
 
 import { SiteHeader } from "../components/SiteHeader";
+import { useLocale } from "../contexts/LocaleContext";
 
 export default function ToolsPage() {
   const { totalItems, subtotal, setIsCartOpen } = useCart();
+  const { t } = useLocale();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All Tools");
   const [sortBy, setSortBy] = useState<"featured" | "price-asc" | "price-desc" | "name">("featured");
@@ -53,25 +55,23 @@ export default function ToolsPage() {
       <section className="tools-hero-banner section-shell">
         <div className="tools-hero-copy">
           <p className="eyebrow">
-            <span className="eyebrow-line" /> Official Agricultural Equipment · Kuwait
+            <span className="eyebrow-line" /> {t("tools.heroEyebrow")}
           </p>
-          <h1>Professional Gardening & Landscaping Tools</h1>
-          <p className="hero-description">
-            Selected commercial-grade pruning saws, high-pressure sprayers, lawn mowers, and precision watering fittings. Specify quantities and receive an official WhatsApp order receipt instantly.
-          </p>
+          <h1>{t("tools.heroTitle")}</h1>
+          <p className="hero-description">{t("tools.heroDescription")}</p>
 
           <div className="tools-features-strip">
             <div className="feature-item">
               <Truck size={17} />
-              <span>Kuwait Express Delivery</span>
+              <span>{t("tools.featureDelivery")}</span>
             </div>
             <div className="feature-item">
               <ShieldCheck size={17} />
-              <span>Watermark-Free Original Tools</span>
+              <span>{t("tools.featureOriginal")}</span>
             </div>
             <div className="feature-item">
               <MessageCircle size={17} />
-            <span>Instant WhatsApp Receipt</span>
+              <span>{t("tools.featureReceipt")}</span>
             </div>
           </div>
         </div>
@@ -84,7 +84,7 @@ export default function ToolsPage() {
             <Search size={18} className="search-icon" />
             <input
               type="text"
-              placeholder="Search tools by name or Bin No (e.g. 0405329)..."
+              placeholder={t("tools.searchPlaceholder")}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -93,7 +93,7 @@ export default function ToolsPage() {
                 className="clear-search-btn"
                 onClick={() => setSearchTerm("")}
               >
-                Clear
+                {t("tools.clear")}
               </button>
             ) : null}
           </div>
@@ -104,10 +104,10 @@ export default function ToolsPage() {
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as any)}
             >
-              <option value="featured">Sort: Featured</option>
-              <option value="price-asc">Price: Low to High</option>
-              <option value="price-desc">Price: High to Low</option>
-              <option value="name">Name: A to Z</option>
+              <option value="featured">{t("tools.sortFeatured")}</option>
+              <option value="price-asc">{t("tools.sortPriceAsc")}</option>
+              <option value="price-desc">{t("tools.sortPriceDesc")}</option>
+              <option value="name">{t("tools.sortName")}</option>
             </select>
           </div>
         </div>
@@ -130,17 +130,16 @@ export default function ToolsPage() {
       <section className="tools-grid-section section-shell">
         <div className="catalog-status-bar">
           <span>
-            Showing <strong>{filteredTools.length}</strong> {filteredTools.length === 1 ? "tool" : "tools"}
-            {selectedCategory !== "All Tools" ? ` in "${selectedCategory}"` : ""}
+            {t("tools.showing")} <strong>{filteredTools.length}</strong>{" "}
+            {filteredTools.length === 1 ? t("tools.tool") : t("tools.tools")}
+            {selectedCategory !== "All Tools" ? t("tools.inCategory", { category: selectedCategory }) : ""}
           </span>
-          {searchTerm ? (
-            <span>Results for "{searchTerm}"</span>
-          ) : null}
+          {searchTerm ? <span>{t("tools.resultsFor", { term: searchTerm })}</span> : null}
         </div>
 
         {filteredTools.length === 0 ? (
           <div className="no-results-card">
-            <p>No tools matched your filter criteria.</p>
+            <p>{t("tools.noResults")}</p>
             <button
               className="button button-dark"
               onClick={() => {
@@ -148,7 +147,7 @@ export default function ToolsPage() {
                 setSelectedCategory("All Tools");
               }}
             >
-              Reset All Filters
+              {t("tools.resetFilters")}
             </button>
           </div>
         ) : (
@@ -165,12 +164,12 @@ export default function ToolsPage() {
         <button
           className="floating-cart-launcher"
           onClick={() => setIsCartOpen(true)}
-          aria-label="Open Cart"
+          aria-label={t("tools.openCart")}
         >
           <div className="floating-cart-left">
             <ShoppingBag size={20} />
             <span className="floating-cart-badge">{totalItems}</span>
-            <span>View Tools Cart</span>
+            <span>{t("tools.viewCart")}</span>
           </div>
           <strong className="floating-cart-subtotal">{subtotal.toFixed(3)} KWD</strong>
         </button>
@@ -186,8 +185,8 @@ export default function ToolsPage() {
             DESERT <em>BLOOMS</em>
           </span>
         </div>
-        <p>Landscaping, Agricultural Tools & Equipment · Kuwait</p>
-        <span>© 2026 Desert Blooms Agricultural Cont. Co.</span>
+        <p>{t("footer.taglineTools")}</p>
+        <span>{t("footer.copyright")}</span>
       </footer>
     </div>
   );

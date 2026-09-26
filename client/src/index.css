@@ -1,5 +1,6 @@
 /* Desert Botanical Editorial system: warm limestone, Oasis Green, terracotta rules, editorial type, and tactile motion. */
 @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -961,3 +962,150 @@ h2 { font-size: clamp(44px, 5.4vw, 76px); }
 .receipt-total-banner { align-items: center; }
 .receipt-secondary-actions { flex-wrap: wrap; }
 @media (max-width: 700px) { .tools-controls-bar { grid-template-columns: 1fr; } .tools-hero-banner { margin-left: 4vw; margin-right: 4vw; } .invoice-chip { display: none; } .receipt-brand-row { align-items: flex-start; } }
+
+/* Language switcher */
+.lang-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  border: 1px solid rgba(49, 88, 66, 0.18);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.45);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.lang-switcher button {
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 2px 4px;
+  font-weight: 700;
+  transition: color 0.15s ease;
+}
+.lang-switcher button.is-active {
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.lang-switcher-divider {
+  color: rgba(49, 88, 66, 0.35);
+  user-select: none;
+}
+.lang-switcher--mobile {
+  border-color: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.06);
+}
+.lang-switcher--mobile button {
+  color: #b7c1b3;
+}
+.lang-switcher--mobile button.is-active {
+  color: #f1eadf;
+}
+
+.ltr-isolate {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+/* RTL layout refinements */
+html[dir="rtl"] body {
+  font-family: "IBM Plex Sans Arabic", "Manrope", sans-serif;
+}
+html[dir="rtl"] h1,
+html[dir="rtl"] h2,
+html[dir="rtl"] h3,
+html[dir="rtl"] h4,
+html[dir="rtl"] .service-copy strong,
+html[dir="rtl"] .proof-quote blockquote,
+html[dir="rtl"] .field-note-strip p {
+  font-family: "IBM Plex Sans Arabic", "DM Serif Display", serif;
+}
+html[dir="rtl"] .main-nav {
+  margin-left: 0;
+  margin-right: 7vw;
+}
+html[dir="rtl"] .hero-copy {
+  padding-left: 0;
+  padding-right: 5.5vw;
+}
+html[dir="rtl"] .eyebrow-line {
+  margin: 0 0 3px 9px;
+}
+html[dir="rtl"] .hero-stamp {
+  right: auto;
+  left: -25px;
+  transform: rotate(-10deg);
+}
+html[dir="rtl"] .contact-copy {
+  padding-left: 0;
+  padding-right: 5.5vw;
+}
+html[dir="rtl"] .proof-quote {
+  padding-left: 0;
+  padding-right: 5.5vw;
+}
+html[dir="rtl"] .approach-image-wrap {
+  margin-left: 0;
+  margin-right: 5.5vw;
+}
+html[dir="rtl"] .vertical-caption {
+  left: auto;
+  right: -29px;
+}
+html[dir="rtl"] .contact-ornament {
+  right: auto;
+  left: 10vw;
+}
+html[dir="rtl"] .service-row:hover {
+  padding-left: 0;
+  padding-right: 13px;
+}
+html[dir="rtl"] .service-copy {
+  padding-left: 0;
+  padding-right: 10px;
+}
+html[dir="rtl"] .service-row:hover .service-arrow {
+  transform: translate(-3px, -3px);
+}
+html[dir="rtl"] .nav-chevron {
+  transform: scaleX(-1);
+}
+html[dir="rtl"] .mobile-nav-overlay {
+  justify-content: flex-start;
+}
+html[dir="rtl"] .cart-drawer-overlay {
+  justify-content: flex-start;
+}
+html[dir="rtl"] .cart-drawer {
+  box-shadow: 10px 0 40px rgba(0, 0, 0, 0.2);
+  animation-name: slideRight;
+}
+@keyframes slideRight {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+html[dir="rtl"] .whatsapp-float {
+  right: auto;
+  left: 22px;
+}
+html[dir="rtl"] .invoice-chip {
+  margin-left: 0;
+  margin-right: auto;
+}
+html[dir="rtl"] .tools-hero-banner::after {
+  right: auto;
+  left: 7%;
+}
+html[dir="rtl"] .brand-wordmark {
+  text-align: right;
+}
+html[dir="rtl"] .enquiry-form label select + svg,
+html[dir="rtl"] .phone-input-row select {
+  direction: ltr;
+}

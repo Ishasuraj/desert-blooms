@@ -1,9 +1,11 @@
 import React, { useState, useEffect, FormEvent } from "react";
 import { useCart } from "../../contexts/CartContext";
+import { useLocale } from "../../contexts/LocaleContext";
 import { VerifiedOrderReceipt } from "../../types/tool";
 import { X, Trash2, Plus, Minus, MessageCircle, ArrowRight, ArrowLeft, ShieldCheck, AlertCircle } from "lucide-react";
 
 export const CartDrawer: React.FC = () => {
+  const { t } = useLocale();
   const {
     cartItems,
     isCartOpen,
@@ -112,7 +114,7 @@ export const CartDrawer: React.FC = () => {
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
-        aria-label="Shopping Cart Drawer"
+        aria-label={t("cart.aria")}
       >
         <header className="cart-drawer-header">
           <div className="cart-drawer-title">
@@ -120,15 +122,15 @@ export const CartDrawer: React.FC = () => {
               onClick={closeCart}
               className="inline-flex items-center gap-1.5 text-xs text-[#b86745] font-bold uppercase tracking-wider mb-1"
             >
-              <ArrowLeft size={14} /> Continue Shopping
+              <ArrowLeft size={14} /> {t("cart.continueShopping")}
             </button>
-            <h2>Your Tools Order</h2>
-            <span className="cart-count-badge">{totalItems} {totalItems === 1 ? "item" : "items"}</span>
+            <h2>{t("cart.title")}</h2>
+            <span className="cart-count-badge">{totalItems} {totalItems === 1 ? t("cart.item") : t("cart.items")}</span>
           </div>
           <button
             className="cart-close-btn"
             onClick={closeCart}
-            aria-label="Close cart"
+            aria-label={t("cart.close")}
           >
             <X size={22} />
           </button>
@@ -137,13 +139,13 @@ export const CartDrawer: React.FC = () => {
         {cartItems.length === 0 ? (
           <div className="cart-empty-state">
             <div className="empty-icon-wrap">🌿</div>
-            <h3>Your cart is empty</h3>
-            <p>Select agricultural & gardening tools from our online store to build your order.</p>
+            <h3>{t("cart.emptyTitle")}</h3>
+            <p>{t("cart.emptyBody")}</p>
             <button
               className="button button-dark"
               onClick={closeCart}
             >
-              Browse Tools Catalog
+              {t("cart.browse")}
             </button>
           </div>
         ) : (
@@ -195,7 +197,7 @@ export const CartDrawer: React.FC = () => {
 
             <form onSubmit={handleCheckout} className="cart-checkout-form">
               <div className="customer-info-section">
-                <h3>Customer Details for Order Receipt</h3>
+                <h3>{t("cart.customerSection")}</h3>
 
                 <label className="hp-field" aria-hidden="true">
                   Company
@@ -208,12 +210,12 @@ export const CartDrawer: React.FC = () => {
                 </label>
 
                 <div className="form-group">
-                  <label htmlFor="customerName">Full Name *</label>
+                  <label htmlFor="customerName">{t("cart.fullName")}</label>
                   <input
                     id="customerName"
                     type="text"
                     required
-                    placeholder="e.g. Salem Al-Sabah"
+                    placeholder={t("cart.namePlaceholder")}
                     value={customerName}
                     onChange={(e) => setCustomerName(e.target.value)}
                     disabled={submitting}
@@ -222,11 +224,11 @@ export const CartDrawer: React.FC = () => {
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="customerPhone">Phone / WhatsApp Number *</label>
+                  <label htmlFor="customerPhone">{t("cart.phone")}</label>
                   <div className="phone-input-row">
                     <select
                       id="countryCode"
-                      aria-label="Country code"
+                      aria-label={t("cart.countryCode")}
                       value={countryCode}
                       onChange={(e) => setCountryCode(e.target.value)}
                       disabled={submitting}
@@ -245,7 +247,7 @@ export const CartDrawer: React.FC = () => {
                       id="customerPhone"
                       type="tel"
                       required
-                      placeholder="Phone number"
+                      placeholder={t("cart.phonePlaceholder")}
                       value={customerPhone}
                       onChange={(e) => setCustomerPhone(e.target.value)}
                       disabled={submitting}
@@ -255,11 +257,11 @@ export const CartDrawer: React.FC = () => {
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="deliveryNotes">Notes / Delivery Address (Optional)</label>
+                  <label htmlFor="deliveryNotes">{t("cart.notes")}</label>
                   <textarea
                     id="deliveryNotes"
                     rows={2}
-                    placeholder="e.g. Shuwaikh Industrial area, Block 2..."
+                    placeholder={t("cart.notesPlaceholder")}
                     value={deliveryNotes}
                     onChange={(e) => setDeliveryNotes(e.target.value)}
                     disabled={submitting}
@@ -270,11 +272,11 @@ export const CartDrawer: React.FC = () => {
 
               <div className="cart-summary-footer">
                 <div className="summary-row">
-                  <span>Subtotal ({totalItems} items)</span>
+                  <span>{t("cart.subtotal", { count: totalItems })}</span>
                   <strong>{subtotal.toFixed(3)} KWD</strong>
                 </div>
                 <div className="summary-row total-row">
-                  <span>Total Amount</span>
+                  <span>{t("cart.totalAmount")}</span>
                   <strong className="grand-total">{subtotal.toFixed(3)} KWD</strong>
                 </div>
 
@@ -291,14 +293,14 @@ export const CartDrawer: React.FC = () => {
                 >
                   <MessageCircle size={19} />
                   <span>
-                    {submitting ? "Verifying Order..." : "Generate Receipt & WhatsApp Order"}
+                    {submitting ? t("cart.verifying") : t("cart.generateReceipt")}
                   </span>
                   <ArrowRight size={18} />
                 </button>
 
                 <div className="security-badge-note">
                   <ShieldCheck size={14} />
-                  <span>Verified server price computation & secure link transmission</span>
+                  <span>{t("cart.securityNote")}</span>
                 </div>
               </div>
             </form>

@@ -7,6 +7,7 @@ import { Route, Switch, useLocation } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { CartProvider } from "./contexts/CartContext";
+import { LocaleProvider } from "./contexts/LocaleContext";
 import Home from "./pages/Home";
 import ToolsPage from "./pages/ToolsPage";
 import ServiceDetail from "./pages/ServiceDetail";
@@ -27,7 +28,11 @@ function Router() {
         <Route path="/" component={Home} />
         <Route path="/tools" component={ToolsPage} />
         <Route path="/services/:slug" component={ServiceDetail} />
+        <Route path="/ar" component={Home} />
+        <Route path="/ar/tools" component={ToolsPage} />
+        <Route path="/ar/services/:slug" component={ServiceDetail} />
         <Route path="/404" component={NotFound} />
+        <Route path="/ar/404" component={NotFound} />
         <Route component={NotFound} />
       </Switch>
     </>
@@ -39,10 +44,12 @@ export default function App() {
     <ErrorBoundary>
       <ThemeProvider defaultTheme="light">
         <CartProvider>
-          <TooltipProvider>
-            <Toaster />
-            <Router />
-          </TooltipProvider>
+          <LocaleProvider>
+            <TooltipProvider>
+              <Toaster />
+              <Router />
+            </TooltipProvider>
+          </LocaleProvider>
         </CartProvider>
       </ThemeProvider>
     </ErrorBoundary>
