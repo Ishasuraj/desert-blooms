@@ -39,6 +39,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       res.status(413).json({ message: "Request body is too large" });
       return;
     }
-    res.status(400).json({ message: "Invalid request body" });
+    if (error instanceof SyntaxError) {
+      res.status(400).json({ message: "Invalid request body" });
+      return;
+    }
+    console.error("Order creation failed:", error);
+    res.status(500).json({ message: "Unable to save the order. Please try again later." });
   }
 }

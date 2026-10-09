@@ -469,6 +469,10 @@ The code relies on environment variables such as:
 - `VITE_CONTACT_EMAIL`
 - `BUILT_IN_FORGE_API_URL`
 - `BUILT_IN_FORGE_API_KEY`
+- `SUPABASE_URL`
+- `SUPABASE_ANON_KEY` (reserved for future public client use; not used by current server writes)
+- `SUPABASE_SERVICE_ROLE_KEY` (server-side only; configure in Vercel project environment settings and never use a `VITE_` prefix)
+- `WHATSAPP_TARGET_NUMBER`
 
 If these are missing in Vercel, parts of the app may silently fail or behave incorrectly.
 
@@ -508,13 +512,9 @@ This should be reviewed before adding new auth or callback flows.
 
 These endpoints exist in local development only. They are not automatically deployed as Vercel serverless functions unless the same behavior is mirrored in `api/`.
 
-### 8. The app currently relies on hard-coded business configuration
+### 8. Environment configuration for local development and Vercel
 
-The target WhatsApp number is hardcoded in `server/processOrder.ts`:
-
-- `TARGET_WHATSAPP_NUMBER = "96560096148"`
-
-This is fine for a simple setup, but it should be moved to environment variables for better maintainability and safer configuration management.
+Copy `.env.example` to `.env` for local development and fill in the server variables. Vercel does not read the local `.env` file; add the same variable names in Project Settings → Environment Variables. Supabase writes use `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` on the server. The anon key is not used by the current application. `WHATSAPP_TARGET_NUMBER` is required before the order service starts.
 
 ---
 
@@ -522,14 +522,13 @@ This is fine for a simple setup, but it should be moved to environment variables
 
 If you want this project to be more robust on Vercel, the following changes would help:
 
-1. Move WhatsApp target number into environment variables
-2. Move all SMTP config into environment variables and validate them explicitly
-3. Replace in-memory rate limiting with Redis or Upstash
-4. Make the local Express layer and Vercel API layer share a single core implementation if possible
-5. Review `client/src/const.ts` to determine whether OAuth code should be removed or completed
-6. Add a proper production logging and monitoring strategy
-7. Add tests for the mail/order flows and schema validation
-8. Consider separating API logic from frontend logic further for easier maintenance
+1. Move all SMTP config into environment variables and validate them explicitly
+2. Replace in-memory rate limiting with Redis or Upstash
+3. Make the local Express layer and Vercel API layer share a single core implementation if possible
+4. Review `client/src/const.ts` to determine whether OAuth code should be removed or completed
+5. Add a proper production logging and monitoring strategy
+6. Add tests for the mail/order flows and schema validation
+7. Consider separating API logic from frontend logic further for easier maintenance
 
 ---
 

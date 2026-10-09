@@ -31,6 +31,13 @@ const orderRateLimit = rateLimit({
 });
 
 async function startServer() {
+  if (!process.env.WHATSAPP_TARGET_NUMBER?.trim()) {
+    throw new Error("Missing WHATSAPP_TARGET_NUMBER. Set it in the server environment before starting the application.");
+  }
+
+  // Load order services before listening so missing server credentials fail at startup.
+  await import("./processOrder.js");
+
   const app = express();
   const server = createServer(app);
 
@@ -48,15 +55,20 @@ async function startServer() {
   });
 
   app.post("/api/order/create", orderRateLimit, async (req, res) => {
-    const { processOrder } = await import("./processOrder.js");
-    const result = await processOrder(req.body, getClientIp(req));
+    try {
+      const { processOrder } = await import("./processOrder.js");
+      const result = await processOrder(req.body, getClientIp(req));
 
-    if (!result.ok) {
-      res.status(result.status).json({ message: result.message });
-      return;
+      if (!result.ok) {
+        res.status(result.status).json({ message: result.message });
+        return;
+      }
+
+      res.status(200).json(result.receipt);
+    } catch (error) {
+      console.error("Order creation failed:", error);
+      res.status(500).json({ message: "Unable to save the order. Please try again later." });
     }
-
-    res.status(200).json(result.receipt);
   });
 
   const staticPath =

@@ -2,7 +2,65 @@ import React, { useState, useEffect, FormEvent } from "react";
 import { useCart } from "../../contexts/CartContext";
 import { useLocale } from "../../contexts/LocaleContext";
 import { VerifiedOrderReceipt } from "../../types/tool";
+import { createOrderSchema } from "../../../../shared/orderSchema";
 import { X, Trash2, Plus, Minus, MessageCircle, ArrowRight, ArrowLeft, ShieldCheck, AlertCircle } from "lucide-react";
+
+const ORDER_ATTEMPT_STORAGE_KEY = "desert_blooms_order_attempt_v1";
+let memoryOrderAttempt: { fingerprint: string; idempotencyKey: string } | null = null;
+
+function fallbackFingerprint(value: string): string {
+  let first = 0x811c9dc5;
+  let second = 0x9e3779b9;
+  for (let index = 0; index < value.length; index += 1) {
+    first = Math.imul(first ^ value.charCodeAt(index), 0x01000193);
+    second = Math.imul(second ^ value.charCodeAt(index), 0x85ebca6b);
+  }
+  return `${(first >>> 0).toString(16)}${(second >>> 0).toString(16)}`;
+}
+
+function createIdempotencyKey(): string {
+  if (crypto.randomUUID) return crypto.randomUUID();
+  const bytes = crypto.getRandomValues(new Uint8Array(16));
+  bytes[6] = (bytes[6] & 0x0f) | 0x40;
+  bytes[8] = (bytes[8] & 0x3f) | 0x80;
+  const hex = Array.from(bytes, (byte) => byte.toString(16).padStart(2, "0")).join("");
+  return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
+}
+
+async function getOrderAttemptKey(payload: unknown): Promise<string> {
+  const serializedPayload = JSON.stringify(payload);
+  let fingerprint = fallbackFingerprint(serializedPayload);
+  if (crypto.subtle) {
+    const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(serializedPayload));
+    fingerprint = Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, "0")).join("");
+  }
+
+  if (memoryOrderAttempt?.fingerprint === fingerprint) {
+    return memoryOrderAttempt.idempotencyKey;
+  }
+
+  try {
+    const stored = localStorage.getItem(ORDER_ATTEMPT_STORAGE_KEY);
+    if (stored) {
+      const attempt = JSON.parse(stored) as { fingerprint?: string; idempotencyKey?: string };
+      if (attempt.fingerprint === fingerprint && attempt.idempotencyKey) {
+        memoryOrderAttempt = { fingerprint, idempotencyKey: attempt.idempotencyKey };
+        return attempt.idempotencyKey;
+      }
+    }
+  } catch {
+    // Start a fresh attempt if saved browser state is unreadable.
+  }
+
+  const idempotencyKey = createIdempotencyKey();
+  memoryOrderAttempt = { fingerprint, idempotencyKey };
+  try {
+    localStorage.setItem(ORDER_ATTEMPT_STORAGE_KEY, JSON.stringify({ fingerprint, idempotencyKey }));
+  } catch {
+    // The order can still be submitted when browser storage is unavailable.
+  }
+  return idempotencyKey;
+}
 
 export const CartDrawer: React.FC = () => {
   const { t } = useLocale();
@@ -16,12 +74,10 @@ export const CartDrawer: React.FC = () => {
     totalItems,
     clearCart,
     setActiveReceipt,
+    checkoutDetails,
+    setCheckoutDetails,
   } = useCart();
 
-  const [customerName, setCustomerName] = useState("");
-  const [countryCode, setCountryCode] = useState("+44");
-  const [customerPhone, setCustomerPhone] = useState("");
-  const [deliveryNotes, setDeliveryNotes] = useState("");
   const [gotcha, setGotcha] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -62,9 +118,10 @@ export const CartDrawer: React.FC = () => {
     try {
       const payload = {
         customer: {
-          name: customerName,
-          phone: `${countryCode} ${customerPhone.trim().replace(/^0+/, "")}`,
-          deliveryNotes: deliveryNotes || undefined,
+          name: checkoutDetails.name,
+          email: checkoutDetails.email,
+          phone: `${checkoutDetails.countryCode} ${checkoutDetails.phone.trim().replace(/^0+/, "")}`,
+          deliveryNotes: checkoutDetails.deliveryNotes || undefined,
         },
         items: cartItems.map((item) => ({
           toolId: item.tool.id,
@@ -73,10 +130,16 @@ export const CartDrawer: React.FC = () => {
         _gotcha: gotcha || undefined,
       };
 
+      const idempotencyKey = await getOrderAttemptKey(payload);
+      const validation = createOrderSchema.safeParse({ ...payload, idempotencyKey });
+      if (!validation.success) {
+        throw new Error(validation.error.issues[0]?.message || "Please check your contact details.");
+      }
+
       const response = await fetch("/api/order/create", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(validation.data),
       });
 
       const responseText = await response.text();
@@ -95,9 +158,16 @@ export const CartDrawer: React.FC = () => {
       }
 
       // Order created successfully! Open receipt modal and close drawer
+      memoryOrderAttempt = null;
+      try {
+        localStorage.removeItem(ORDER_ATTEMPT_STORAGE_KEY);
+      } catch {
+        // The completed attempt is cleared from in-memory state even if storage is unavailable.
+      }
       setActiveReceipt(data as unknown as VerifiedOrderReceipt);
       closeCart();
       clearCart();
+      setCheckoutDetails({ name: "", email: "", countryCode: "+965", phone: "", deliveryNotes: "" });
     } catch (err) {
       setError(
         err instanceof Error ? err.message : "Error creating order receipt. Please check your inputs."
@@ -216,10 +286,25 @@ export const CartDrawer: React.FC = () => {
                     type="text"
                     required
                     placeholder={t("cart.namePlaceholder")}
-                    value={customerName}
-                    onChange={(e) => setCustomerName(e.target.value)}
+                    value={checkoutDetails.name}
+                    onChange={(e) => setCheckoutDetails((details) => ({ ...details, name: e.target.value }))}
                     disabled={submitting}
                     maxLength={100}
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="customerEmail">{t("cart.email")}</label>
+                  <input
+                    id="customerEmail"
+                    type="email"
+                    required
+                    autoComplete="email"
+                    placeholder={t("cart.emailPlaceholder")}
+                    value={checkoutDetails.email}
+                    onChange={(e) => setCheckoutDetails((details) => ({ ...details, email: e.target.value }))}
+                    disabled={submitting}
+                    maxLength={254}
                   />
                 </div>
 
@@ -229,8 +314,8 @@ export const CartDrawer: React.FC = () => {
                     <select
                       id="countryCode"
                       aria-label={t("cart.countryCode")}
-                      value={countryCode}
-                      onChange={(e) => setCountryCode(e.target.value)}
+                      value={checkoutDetails.countryCode}
+                      onChange={(e) => setCheckoutDetails((details) => ({ ...details, countryCode: e.target.value }))}
                       disabled={submitting}
                     >
                       <option value="+965">KW +965</option>
@@ -248,8 +333,8 @@ export const CartDrawer: React.FC = () => {
                       type="tel"
                       required
                       placeholder={t("cart.phonePlaceholder")}
-                      value={customerPhone}
-                      onChange={(e) => setCustomerPhone(e.target.value)}
+                      value={checkoutDetails.phone}
+                      onChange={(e) => setCheckoutDetails((details) => ({ ...details, phone: e.target.value }))}
                       disabled={submitting}
                       maxLength={15}
                     />
@@ -262,8 +347,8 @@ export const CartDrawer: React.FC = () => {
                     id="deliveryNotes"
                     rows={2}
                     placeholder={t("cart.notesPlaceholder")}
-                    value={deliveryNotes}
-                    onChange={(e) => setDeliveryNotes(e.target.value)}
+                    value={checkoutDetails.deliveryNotes}
+                    onChange={(e) => setCheckoutDetails((details) => ({ ...details, deliveryNotes: e.target.value }))}
                     disabled={submitting}
                     maxLength={500}
                   />

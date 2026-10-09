@@ -30,6 +30,7 @@ export interface VerifiedOrderItem {
 }
 
 export interface VerifiedOrderReceipt {
+  orderId: string;
   orderRef: string;
   timestamp: string;
   customer: {

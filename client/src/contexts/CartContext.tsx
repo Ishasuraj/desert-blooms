@@ -13,7 +13,25 @@ interface CartContextType {
   setIsCartOpen: (open: boolean) => void;
   activeReceipt: VerifiedOrderReceipt | null;
   setActiveReceipt: (receipt: VerifiedOrderReceipt | null) => void;
+  checkoutDetails: CheckoutDetails;
+  setCheckoutDetails: React.Dispatch<React.SetStateAction<CheckoutDetails>>;
 }
+
+export interface CheckoutDetails {
+  name: string;
+  email: string;
+  countryCode: string;
+  phone: string;
+  deliveryNotes: string;
+}
+
+const EMPTY_CHECKOUT_DETAILS: CheckoutDetails = {
+  name: "",
+  email: "",
+  countryCode: "+965",
+  phone: "",
+  deliveryNotes: "",
+};
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
@@ -31,6 +49,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [activeReceipt, setActiveReceipt] = useState<VerifiedOrderReceipt | null>(null);
+  const [checkoutDetails, setCheckoutDetails] = useState<CheckoutDetails>(EMPTY_CHECKOUT_DETAILS);
 
   useEffect(() => {
     try {
@@ -98,6 +117,8 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setIsCartOpen,
         activeReceipt,
         setActiveReceipt,
+        checkoutDetails,
+        setCheckoutDetails,
       }}
     >
       {children}

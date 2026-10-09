@@ -35,6 +35,8 @@ export const ReceiptModal: React.FC = () => {
 
   if (!activeReceipt) return null;
   const words = activeReceipt.amountInWords || amountInWords(activeReceipt.totalAmount);
+  const whatsappNumber = activeReceipt.whatsappNumber.replace(/\D/g, "");
+  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(activeReceipt.whatsappMessage)}`;
 
   const handleCopySummary = async () => {
     await navigator.clipboard.writeText(activeReceipt.whatsappMessage);
@@ -77,7 +79,7 @@ export const ReceiptModal: React.FC = () => {
           <div className="receipt-total-banner"><div><div className="total-label">{t("receipt.grandTotal")}</div><div className="amount-words">{words}</div></div><div className="total-value">{activeReceipt.formattedTotal}</div></div>
         </div>
         <footer className="receipt-modal-footer">
-          <a href={activeReceipt.whatsappUrl} target="_blank" rel="noopener noreferrer" className="whatsapp-primary-btn"><MessageCircle size={20} /><span>{t("receipt.whatsapp")}</span></a>
+          <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="whatsapp-primary-btn"><MessageCircle size={20} /><span>{t("receipt.whatsapp")}</span></a>
           <div className="receipt-secondary-actions"><button className="button button-outline" onClick={handleDownload} disabled={pdfBusy}><FileDown size={16} />{pdfBusy ? t("receipt.preparingPdf") : t("receipt.downloadPdf")}</button><button className="button button-outline" onClick={handleCopySummary}>{copied ? <Check size={16} /> : <Copy size={16} />}{copied ? t("receipt.copied") : t("receipt.copyText")}</button></div>
           <div className="security-notice"><ShieldCheck size={14} /><span>{t("receipt.security")}</span></div>
         </footer>

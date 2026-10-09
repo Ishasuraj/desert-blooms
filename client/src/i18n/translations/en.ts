@@ -224,6 +224,8 @@ const en: TranslationDict = {
     customerSection: "Customer Details for Order Receipt",
     fullName: "Full Name *",
     namePlaceholder: "e.g. Salem Al-Sabah",
+    email: "Email Address *",
+    emailPlaceholder: "you@example.com",
     phone: "Phone / WhatsApp Number *",
     countryCode: "Country code",
     phonePlaceholder: "Phone number",

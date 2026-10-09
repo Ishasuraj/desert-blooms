@@ -7,6 +7,7 @@ export const orderItemSchema = z.object({
 
 export const customerInfoSchema = z.object({
   name: z.string().trim().min(2, "Please enter your name").max(100, "Name too long"),
+  email: z.string().trim().email("Please enter a valid email address").max(254, "Email address too long"),
   phone: z
     .string()
     .trim()
@@ -17,6 +18,7 @@ export const customerInfoSchema = z.object({
 });
 
 export const createOrderSchema = z.object({
+  idempotencyKey: z.string().uuid("Invalid order submission key"),
   customer: customerInfoSchema,
   items: z.array(orderItemSchema).min(1, "Cart cannot be empty"),
   _gotcha: z.string().max(0, "Bot detected").optional(),
