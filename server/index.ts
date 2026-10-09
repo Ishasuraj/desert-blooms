@@ -31,10 +31,6 @@ const orderRateLimit = rateLimit({
 });
 
 async function startServer() {
-  if (!process.env.WHATSAPP_TARGET_NUMBER?.trim()) {
-    throw new Error("Missing WHATSAPP_TARGET_NUMBER. Set it in the server environment before starting the application.");
-  }
-
   // Load order services before listening so missing server credentials fail at startup.
   await import("./processOrder.js");
 

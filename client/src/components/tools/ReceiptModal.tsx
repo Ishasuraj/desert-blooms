@@ -1,13 +1,13 @@
 import React from "react";
 import { useCart } from "../../contexts/CartContext";
 import { useLocale } from "../../contexts/LocaleContext";
+import { contact } from "../../contact";
 import { createReceiptPdf, downloadReceiptPdf, amountInWords } from "../../lib/receiptPdf";
-import { X, MessageCircle, FileDown, CheckCircle, ShieldCheck, Copy, Check } from "lucide-react";
+import { X, MessageCircle, FileDown, CheckCircle, ShieldCheck } from "lucide-react";
 
 export const ReceiptModal: React.FC = () => {
   const { activeReceipt, setActiveReceipt } = useCart();
   const { t } = useLocale();
-  const [copied, setCopied] = React.useState(false);
   const [pdfBusy, setPdfBusy] = React.useState(false);
 
   React.useEffect(() => {
@@ -35,14 +35,9 @@ export const ReceiptModal: React.FC = () => {
 
   if (!activeReceipt) return null;
   const words = activeReceipt.amountInWords || amountInWords(activeReceipt.totalAmount);
-  const whatsappNumber = activeReceipt.whatsappNumber.replace(/\D/g, "");
-  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(activeReceipt.whatsappMessage)}`;
-
-  const handleCopySummary = async () => {
-    await navigator.clipboard.writeText(activeReceipt.whatsappMessage);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
+  const whatsappNumber = contact.whatsappNumber.replace(/\D/g, "");
+  const whatsappMessage = `Hi, I have a question about my order #${activeReceipt.orderRef}`;
+  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
 
   const getPdf = async () => {
     setPdfBusy(true);
@@ -63,10 +58,11 @@ export const ReceiptModal: React.FC = () => {
     <div className="receipt-modal-overlay" onClick={closeReceipt}>
       <div className="receipt-modal" onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true" aria-label={t("receipt.aria")}>
         <header className="receipt-modal-header">
-          <div className="receipt-header-left"><CheckCircle className="success-icon" size={28} /><div><h2>{t("receipt.invoiceReady")}</h2><span className="order-ref-tag">{t("receipt.ref", { ref: activeReceipt.orderRef })}</span></div></div>
+          <div className="receipt-header-left"><CheckCircle className="success-icon" size={28} /><div><h2>{t("receipt.orderReceived")}</h2><span className="order-ref-tag">{t("receipt.ref", { ref: activeReceipt.orderRef })}</span></div></div>
           <button className="receipt-close-btn" onClick={closeReceipt} aria-label={t("receipt.close")}><X size={20} /></button>
         </header>
         <div className="receipt-modal-body printable-area">
+          <div className="receipt-confirmation-note"><p>{t("receipt.confirmationSent", { email: activeReceipt.customer.email })}</p><p>{t("receipt.agentWillContact")}</p></div>
           <div className="receipt-brand-row"><img src="/images/desert-blooms-logo.png" alt="Desert Blooms" /><div><strong>DESERT BLOOMS</strong><small>{t("receipt.companyLine")}</small></div><span className="invoice-chip">{t("receipt.invoiceChip")}</span></div>
           <div className="receipt-meta-grid">
             <div><span className="meta-label">{t("receipt.dateTime")}</span><strong className="meta-val">{activeReceipt.timestamp}</strong></div>
@@ -79,8 +75,7 @@ export const ReceiptModal: React.FC = () => {
           <div className="receipt-total-banner"><div><div className="total-label">{t("receipt.grandTotal")}</div><div className="amount-words">{words}</div></div><div className="total-value">{activeReceipt.formattedTotal}</div></div>
         </div>
         <footer className="receipt-modal-footer">
-          <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="whatsapp-primary-btn"><MessageCircle size={20} /><span>{t("receipt.whatsapp")}</span></a>
-          <div className="receipt-secondary-actions"><button className="button button-outline" onClick={handleDownload} disabled={pdfBusy}><FileDown size={16} />{pdfBusy ? t("receipt.preparingPdf") : t("receipt.downloadPdf")}</button><button className="button button-outline" onClick={handleCopySummary}>{copied ? <Check size={16} /> : <Copy size={16} />}{copied ? t("receipt.copied") : t("receipt.copyText")}</button></div>
+          <div className="receipt-secondary-actions"><button className="button button-outline" onClick={handleDownload} disabled={pdfBusy}><FileDown size={16} />{pdfBusy ? t("receipt.preparingPdf") : t("receipt.downloadPdf")}</button><a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="button button-outline whatsapp-chat-link"><MessageCircle size={16} />{t("receipt.whatsappQuestions")}</a></div>
           <div className="security-notice"><ShieldCheck size={14} /><span>{t("receipt.security")}</span></div>
         </footer>
       </div>

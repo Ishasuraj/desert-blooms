@@ -6,7 +6,6 @@ import { ReceiptModal } from "@/components/tools/ReceiptModal";
 import { ConsultationModal } from "@/components/ConsultationModal";
 import { useCart } from "@/contexts/CartContext";
 import { useLocale } from "@/contexts/LocaleContext";
-import { LocalizedLink } from "@/components/LocalizedLink";
 import { getLocalizedService } from "@/i18n/servicesLocalized";
 import { contact } from "@/contact";
 import {
@@ -28,7 +27,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 export default function ServiceDetail() {
   const params = useParams<{ slug: string }>();
   const slug = params?.slug;
-  const { t, locale } = useLocale();
+  const { t, locale, localePath } = useLocale();
 
   const baseService = SERVICES.find((s) => s.slug === slug);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -49,9 +48,9 @@ export default function ServiceDetail() {
         {/* Back Link & Breadcrumb Strip */}
         <div className="section-shell pt-8 pb-4">
           <div className="flex items-center gap-3 text-xs tracking-widest uppercase text-[#738072]">
-            <LocalizedLink href="/#services" className="inline-flex items-center gap-2 hover:text-[#b86745] transition-colors">
+            <a href={`${localePath("/")}#services`} className="inline-flex items-center gap-2 hover:text-[#b86745] transition-colors">
               <ArrowLeft size={14} /> {t("serviceDetail.backToServices")}
-            </LocalizedLink>
+            </a>
             <span>/</span>
             <span className="text-[#b86745] font-semibold">{service.title}</span>
           </div>

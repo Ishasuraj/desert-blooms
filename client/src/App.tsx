@@ -15,6 +15,14 @@ import ServiceDetail from "./pages/ServiceDetail";
 function ScrollToTop() {
   const [pathname] = useLocation();
   useEffect(() => {
+    const hash = window.location.hash.slice(1);
+    if (hash) {
+      const frame = window.requestAnimationFrame(() => {
+        document.getElementById(decodeURIComponent(hash))?.scrollIntoView({ behavior: "instant" });
+      });
+      return () => window.cancelAnimationFrame(frame);
+    }
+
     window.scrollTo({ top: 0, left: 0, behavior: "instant" });
   }, [pathname]);
   return null;

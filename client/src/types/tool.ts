@@ -35,6 +35,7 @@ export interface VerifiedOrderReceipt {
   timestamp: string;
   customer: {
     name: string;
+    email: string;
     phone: string;
     deliveryNotes?: string;
   };
@@ -42,7 +43,4 @@ export interface VerifiedOrderReceipt {
   totalAmount: number;
   formattedTotal: string;
   amountInWords?: string;
-  whatsappNumber: string;
-  whatsappUrl: string;
-  whatsappMessage: string;
 }

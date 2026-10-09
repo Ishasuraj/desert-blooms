@@ -9,6 +9,7 @@
 :root { --background: #f4f0e8; --foreground: #22352b; --primary: #315842; --primary-foreground: #f4f0e8; --card: #ebe6da; --card-foreground: #22352b; --border: #d8d0c1; --muted: #7d877a; --terracotta: #b86745; --sand: #d8c8ac; --ink: #22352b; --radius: 0.25rem; --ease-out: cubic-bezier(.23,1,.32,1); }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
+#services { scroll-margin-top: 8rem; }
 body { margin: 0; background: var(--background); color: var(--foreground); font-family: 'Manrope', sans-serif; }
 button, input, select, textarea { font: inherit; }
 button { border: 0; }
@@ -952,6 +953,11 @@ html[dir="rtl"] .home-intro-wordmark {
 .success-icon { color: #25d366; }
 .receipt-modal-header h2 { font-size: 20px; margin: 0; }
 .order-ref-tag { font-size: 11px; font-weight: 800; color: var(--terracotta); letter-spacing: 0.05em; }
+.receipt-confirmation-note { margin-bottom: 18px; padding: 14px 16px; border-radius: 8px; background: #f2f7f1; color: #304438; line-height: 1.55; }
+.receipt-confirmation-note p { margin: 0; }
+.receipt-confirmation-note p + p { margin-top: 8px; }
+.whatsapp-chat-link { color: var(--terracotta); text-decoration: none; }
+.whatsapp-chat-link:hover { color: var(--terracotta); }
 
 .receipt-modal-body {
   padding: 24px;

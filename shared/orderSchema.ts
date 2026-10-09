@@ -11,9 +11,13 @@ export const customerInfoSchema = z.object({
   phone: z
     .string()
     .trim()
-    .min(7, "Please enter a valid phone number")
-    .max(20, "Phone number too long")
-    .regex(/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s./0-9]*$/, "Invalid phone number format"),
+    .regex(/^\+\d{1,4} \d+$/, "Please enter a valid phone number")
+    .refine((phone) => {
+      const [countryCode, localNumber = ""] = phone.split(" ");
+      return countryCode === "+965"
+        ? /^\d{8}$/.test(localNumber)
+        : /^\d{6,12}$/.test(localNumber);
+    }, "Please enter a valid phone number"),
   deliveryNotes: z.string().trim().max(500, "Notes too long").optional(),
 });
 

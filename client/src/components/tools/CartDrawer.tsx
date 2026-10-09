@@ -116,11 +116,19 @@ export const CartDrawer: React.FC = () => {
     setError(null);
 
     try {
+      const localPhoneNumber = checkoutDetails.phone.trim().replace(/[\s-]/g, "");
+      if (checkoutDetails.countryCode === "+965" && !/^\d{8}$/.test(localPhoneNumber)) {
+        throw new Error("Please enter a valid 8-digit Kuwait number");
+      }
+      if (checkoutDetails.countryCode !== "+965" && !/^\d{6,12}$/.test(localPhoneNumber)) {
+        throw new Error("Please enter a valid phone number with 6 to 12 digits");
+      }
+
       const payload = {
         customer: {
           name: checkoutDetails.name,
           email: checkoutDetails.email,
-          phone: `${checkoutDetails.countryCode} ${checkoutDetails.phone.trim().replace(/^0+/, "")}`,
+          phone: `${checkoutDetails.countryCode} ${localPhoneNumber}`,
           deliveryNotes: checkoutDetails.deliveryNotes || undefined,
         },
         items: cartItems.map((item) => ({

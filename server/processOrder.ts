@@ -4,13 +4,6 @@ import toolsData from "../shared/tools.json" with { type: "json" };
 import { supabase } from "./db.js";
 import { sendCustomerOrderConfirmationEmail, sendOrderNotificationEmail } from "./mail.js";
 
-const TARGET_WHATSAPP_NUMBER = process.env.WHATSAPP_TARGET_NUMBER;
-const whatsappTargetNumber = TARGET_WHATSAPP_NUMBER?.replace(/\D/g, "") ?? "";
-
-  if (!whatsappTargetNumber) {
-    throw new Error("Missing WHATSAPP_TARGET_NUMBER. Set it in the server environment before starting the application.");
-  }
-
 const ONES = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"];
 const TENS = ["", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"];
 function underThousand(value: number): string {
@@ -40,6 +33,7 @@ export interface VerifiedOrderReceipt {
   timestamp: string;
   customer: {
     name: string;
+    email: string;
     phone: string;
     deliveryNotes?: string;
   };
@@ -47,9 +41,6 @@ export interface VerifiedOrderReceipt {
   totalAmount: number;
   formattedTotal: string;
   amountInWords: string;
-  whatsappNumber: string;
-  whatsappUrl: string;
-  whatsappMessage: string;
 }
 
 export async function processOrder(
@@ -276,53 +267,13 @@ export async function processOrder(
     timeStyle: "short",
   });
 
-  // Construct official formatted WhatsApp receipt message
-  let messageLines = [
-    `🌿 *DESERT BLOOMS - OFFICIAL ORDER RECEIPT*`,
-    `----------------------------------------`,
-    `📋 *Order Ref:* #${orderRef}`,
-    `📅 *Date:* ${timestamp}`,
-    ``,
-    `👤 *CUSTOMER DETAILS:*`,
-    `• *Name:* ${data.customer.name}`,
-    `• *Phone:* ${data.customer.phone}`,
-  ];
-
-  if (data.customer.deliveryNotes) {
-    messageLines.push(`• *Notes:* ${data.customer.deliveryNotes}`);
-  }
-
-  messageLines.push(
-    ``,
-    `🛒 *ORDERED ITEMS (${verifiedItems.reduce((acc, i) => acc + i.quantity, 0)} total):*`
-  );
-
-  verifiedItems.forEach((item, index) => {
-    messageLines.push(
-      `${index + 1}. *${item.name}*`,
-      `   └ Bin No: ${item.binNo} | Qty: ${item.quantity} x ${item.unitPrice.toFixed(3)} KWD = *${item.subtotal.toFixed(3)} KWD*`
-    );
-  });
-
-  messageLines.push(
-    ``,
-    `----------------------------------------`,
-    `💰 *TOTAL AMOUNT: ${formattedGrandTotal}*`,
-    `In words: ${amountInWords(grandTotal)}`,
-    `----------------------------------------`,
-    `Thank you for choosing Desert Blooms Agricultural Cont. Co.!`
-  );
-
-  const whatsappMessage = messageLines.join("\n");
-  const encodedMsg = encodeURIComponent(whatsappMessage);
-  const whatsappUrl = `https://wa.me/${whatsappTargetNumber}?text=${encodedMsg}`;
-
   const receipt: VerifiedOrderReceipt = {
     orderId: order.id,
     orderRef,
     timestamp,
     customer: {
       name: data.customer.name,
+      email: data.customer.email,
       phone: data.customer.phone,
       deliveryNotes: data.customer.deliveryNotes,
     },
@@ -330,9 +281,6 @@ export async function processOrder(
     totalAmount: Number(grandTotal.toFixed(3)),
     formattedTotal: formattedGrandTotal,
     amountInWords: amountInWords(grandTotal),
-    whatsappNumber: `+${whatsappTargetNumber.startsWith("965") ? "965 " + whatsappTargetNumber.slice(3) : whatsappTargetNumber}`,
-    whatsappUrl,
-    whatsappMessage,
   };
 
   console.log(`[Order Verified] #${orderRef} for ${data.customer.name} - Total: ${formattedGrandTotal} (IP: ${clientIp})`);
