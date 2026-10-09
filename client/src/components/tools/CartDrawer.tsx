@@ -1,4 +1,5 @@
 import React, { useState, useEffect, FormEvent } from "react";
+import { useLocation } from "wouter";
 import { useCart } from "../../contexts/CartContext";
 import { useLocale } from "../../contexts/LocaleContext";
 import { VerifiedOrderReceipt } from "../../types/tool";
@@ -63,7 +64,8 @@ async function getOrderAttemptKey(payload: unknown): Promise<string> {
 }
 
 export const CartDrawer: React.FC = () => {
-  const { t } = useLocale();
+  const { t, localePath } = useLocale();
+  const [, setLocation] = useLocation();
   const {
     cartItems,
     isCartOpen,
@@ -104,6 +106,14 @@ export const CartDrawer: React.FC = () => {
     if (window.history.state?.cartModalOpen) {
       window.history.back();
     }
+  };
+
+  const browseTools = () => {
+    setIsCartOpen(false);
+    if (window.history.state?.cartModalOpen) {
+      window.history.replaceState({}, "", window.location.href);
+    }
+    setLocation(localePath("/tools"));
   };
 
   if (!isCartOpen) return null;
@@ -221,7 +231,7 @@ export const CartDrawer: React.FC = () => {
             <p>{t("cart.emptyBody")}</p>
             <button
               className="button button-dark"
-              onClick={closeCart}
+              onClick={browseTools}
             >
               {t("cart.browse")}
             </button>
