@@ -114,6 +114,7 @@ export async function processOrder(
       customer_name: data.customer.name,
       customer_phone: data.customer.phone,
       customer_email: data.customer.email,
+      delivery_notes: data.customer.deliveryNotes ?? null,
     })
     .select("id, order_ref, created_at")
     .single();

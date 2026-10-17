@@ -12,9 +12,12 @@ This is a Vite + React + TypeScript frontend for a landscaping and agricultural 
 
 - a marketing/home page
 - a tools catalog page
+- service detail pages
+- English and Arabic localized routes and content
 - a cart and checkout flow
 - enquiry form submission
-- order receipt generation
+- Supabase-backed order persistence and receipt generation
+- order/customer email notifications with delivery status tracking
 - WhatsApp order receipt flow
 - local development server support
 - Vercel serverless API support
@@ -433,12 +436,12 @@ These are the main things to be aware of when this project is hosted on Vercel.
 
 ### 1. Local Express server and Vercel are not the same runtime
 
-The project has two separate server implementations:
+The project has two runtime entry points that share request processing:
 
 - `server/index.ts` for local Express hosting
 - `api/enquiry.ts` and `api/order/create.ts` for Vercel serverless functions
 
-This is a key architectural split. If you update the logic in `server/processEnquiry.ts` or `server/processOrder.ts`, you must make sure the Vercel API handlers are still aligned with that behavior.
+The local Express routes and Vercel handlers both call the shared `server/processEnquiry.ts` and `server/processOrder.ts` modules. Check both entry points when changing routing, middleware, or runtime-specific behavior.
 
 ### 2. In-memory rate limiting will not be reliable on Vercel serverless
 
@@ -462,7 +465,7 @@ The code relies on environment variables such as:
 
 - `GMAIL_USER`
 - `GMAIL_APP_PASSWORD`
-- `ENQUIRY_TO_EMAIL`
+- `ORDER_NOTIFY_EMAIL`
 - `VITE_CONTACT_PHONE`
 - `VITE_CONTACT_PHONE_TEL`
 - `VITE_CONTACT_WHATSAPP`
@@ -482,7 +485,7 @@ Even though `npm run build` produces `dist/index.js`, that file is not what Verc
 
 The production API route that matters on Vercel is the `api/` directory.
 
-So any logic that is only implemented in the local server may be ignored in production unless duplicated or intentionally mirrored.
+The `api/` handlers are the Vercel request entry points and invoke the shared processing code. Runtime-specific middleware from Express is not automatically applied to serverless handlers.
 
 ### 5. SPA rewrites can mask route issues
 
@@ -510,29 +513,98 @@ This should be reviewed before adding new auth or callback flows.
 
 `vite.config.ts` injects middleware for `/api/enquiry`, `/api/order/create`, `/manus-storage`, and `/__manus__/logs`.
 
-These endpoints exist in local development only. They are not automatically deployed as Vercel serverless functions unless the same behavior is mirrored in `api/`.
+The API behavior is also exposed through `api/` handlers for Vercel. Manus storage/log middleware remains part of local development tooling and should not be treated as a production API.
 
 ### 8. Environment configuration for local development and Vercel
 
-Copy `.env.example` to `.env` for local development and fill in the server variables. Vercel does not read the local `.env` file; add the same variable names in Project Settings → Environment Variables. Supabase writes use `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` on the server. The anon key is not used by the current application. `WHATSAPP_TARGET_NUMBER` is required before the order service starts.
+Copy `.env.example` to `.env` for local development. Set the same required values in Vercel Project Settings → Environment Variables for deployment. Supabase writes use `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` on the server. The anon key is not used by the current application. The WhatsApp contact number is configured through `VITE_CONTACT_WHATSAPP` (with a code default in `client/src/contact.ts`).
 
 ---
 
-## 13. Recommended Improvements for Production Hardening
+## 13. Current Project Structure and Recent Features
+
+The following reflects the current source tree. Build output and dependency folders are generated or installed locally and are intentionally omitted.
+
+```text
+.
+├── api/                         # Vercel API functions
+│   ├── db.ts                    # server-only Supabase adapter
+│   ├── enquiry.ts
+│   └── order/create.ts
+├── client/
+│   ├── index.html
+│   ├── public/                  # static images, SEO files, tool images
+│   └── src/
+│       ├── assets/services/     # imported service photography
+│       ├── components/
+│       │   ├── tools/           # ToolCard, CartDrawer, ReceiptModal
+│       │   └── ui/              # reusable UI primitives
+│       ├── contexts/            # cart, locale, and theme providers
+│       ├── data/                # tool and service catalogs
+│       ├── hooks/
+│       ├── i18n/                # translations, locale paths, localized helpers
+│       ├── lib/                 # utilities and PDF receipt generation
+│       ├── pages/               # Home, ToolsPage, ServiceDetail, NotFound
+│       ├── types/
+│       └── App.tsx / main.tsx / index.css / contact.ts / const.ts
+├── scripts/
+│   ├── dev.mjs                  # local Vite/API development launcher
+│   └── resendOrderEmail.ts      # list/retry failed order email notifications
+├── server/
+│   ├── db.ts                    # server-only Supabase client
+│   ├── index.ts                 # local Express runtime
+│   ├── mail.ts                  # enquiry and order email delivery
+│   ├── processEnquiry.ts
+│   ├── processOrder.ts          # validate, persist, notify, and build receipt
+│   └── *RateLimit.ts
+├── shared/                      # schemas, constants, canonical tools.json
+├── supabase/migrations/          # database migrations 001 through 006
+├── patches/                      # package patches
+├── extracted_cards/              # extracted product artwork/source material
+├── extracted_tools_images/       # extracted product images/source material
+├── package.json / pnpm-lock.yaml
+├── vite.config.ts / vercel.json / tsconfig*.json
+├── Tools.xlsx / PRODUCTS DESSERTBLOOMS.docx
+└── ideas.md / todo.md / PROJECT_STRUCTURE_GUIDE.md
+```
+
+### Localization and routes
+
+`client/src/App.tsx` wraps the application in `LocaleProvider` and defines English routes (`/`, `/tools`, `/services/:slug`) plus Arabic-prefixed routes (`/ar`, `/ar/tools`, `/ar/services/:slug`). `client/src/contexts/LocaleContext.tsx` resolves the locale from the path and exposes translation and locale-aware path helpers. `client/src/i18n/` contains English/Arabic dictionaries, route helpers, and localized service, tool, and enquiry labels. `LanguageSwitcher.tsx` and `LocalizedLink.tsx` keep navigation within the selected language. RTL styling is handled in the client styles and locale-aware components.
+
+`client/src/pages/ServiceDetail.tsx` renders a service page by slug using `client/src/data/services.ts` and localized service data. `client/src/pages/Home.tsx` is the landing page and enquiry form; `ToolsPage.tsx` is the catalog and cart entry point. Tool UI lives in `client/src/components/tools/`. `client/src/lib/receiptPdf.ts` generates a downloadable receipt PDF.
+
+### Persistent orders and notifications
+
+`server/processOrder.ts` is the shared order workflow used by both local Express and Vercel handlers. It validates the payload, rechecks item IDs/prices against `shared/tools.json`, creates the order and line items in Supabase, and returns a verified receipt and WhatsApp URL. A client idempotency key and request fingerprint prevent duplicate orders on identical retries and detect reuse of a key with different order details. Order references are assigned by the database (`DB-100001`, etc.).
+
+`server/mail.ts` sends enquiry email, an order notification to the configured business address, and an order confirmation to the customer. Outcomes are recorded in Supabase `notifications`, including channel, status, and error details. `scripts/resendOrderEmail.ts` supports listing failed messages and retrying a selected order's business or customer email. The command is `pnpm run resend:order-email -- --list-failed` or `pnpm run resend:order-email -- DB-100001` (add `-- --customer` to resend the customer message).
+
+`server/db.ts` creates the Supabase client with `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY`; `api/db.ts` re-exports this server-only client. Never import this module into browser code or expose the service role key. `supabase/migrations/001_init.sql` through `006_add_delivery_notes.sql` define the customers/orders/items schema, customer contact fields, notification log, order reference, idempotency support, and the `orders.delivery_notes` column. Apply migrations to the Supabase project before using order submission.
+
+The browser catalog is in `client/src/data/tools.ts`; `shared/tools.json` is the server verification catalog. Keep their IDs, names, and prices aligned when editing products. Product/source documents and extracted image folders are reference/material assets, not runtime modules.
+
+### Runtime and environment details
+
+`pnpm run dev` invokes `scripts/dev.mjs`, which starts Vite with local API middleware. The local Express server is `server/index.ts`; Vercel uses `api/enquiry.ts` and `api/order/create.ts`. Both paths call the shared processing modules. The API handlers use `api/db.ts` to reach the server Supabase client. Vercel does not run the Express entry point.
+
+Server configuration includes Supabase (`SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`), SMTP (`GMAIL_USER`, `GMAIL_APP_PASSWORD`), the business notification recipient (`ORDER_NOTIFY_EMAIL`), and `WHATSAPP_TARGET_NUMBER`. Configure these in the local environment and in the Vercel project environment. The service role key must only exist server-side. `pnpm run resend:order-email` uses the same database and mail settings.
+
+The package scripts currently include `dev`, `build`, `start`, `preview`, `check`, `format`, and `resend:order-email`. `pnpm run build` runs the Vite client build and bundles the Express server. The configured Vercel output is `dist/public`; Vercel's `api/` directory is deployed separately as functions.
+
+## 14. Recommended Improvements for Production Hardening
 
 If you want this project to be more robust on Vercel, the following changes would help:
 
-1. Move all SMTP config into environment variables and validate them explicitly
-2. Replace in-memory rate limiting with Redis or Upstash
-3. Make the local Express layer and Vercel API layer share a single core implementation if possible
-4. Review `client/src/const.ts` to determine whether OAuth code should be removed or completed
-5. Add a proper production logging and monitoring strategy
-6. Add tests for the mail/order flows and schema validation
-7. Consider separating API logic from frontend logic further for easier maintenance
+1. Replace in-memory rate limiting with Redis, Upstash, or another shared store for serverless deployments
+2. Add production logging and monitoring for API errors, order persistence, and notification delivery
+3. Decide whether the OAuth-related code in `client/src/const.ts` is still needed
+4. Add tests for order idempotency, database persistence, mail flows, and schema validation
+5. Keep the browser catalog and canonical server catalog synchronized, or generate both from a single source
 
 ---
 
-## 14. Practical Notes for Copilot / AI Agents
+## 15. Practical Notes for Copilot / AI Agents
 
 When going into this repo, key files to read first are:
 
@@ -545,6 +617,11 @@ When going into this repo, key files to read first are:
 - `server/processOrder.ts`
 - `server/processEnquiry.ts`
 - `server/mail.ts`
+- `server/db.ts`
+- `client/src/contexts/LocaleContext.tsx`
+- `client/src/i18n/`
+- `supabase/migrations/`
+- `scripts/resendOrderEmail.ts`
 - `api/enquiry.ts`
 - `api/order/create.ts`
 - `shared/tools.json`
@@ -555,7 +632,7 @@ If you are changing behavior, always check both the local runtime path and the V
 
 ---
 
-## 15. Final Takeaway
+## 16. Final Takeaway
 
 This project is a hybrid Vite + React + TypeScript application with a frontend storefront, a validated server-side order system, email sending, and Vercel deployment support.
 
@@ -568,7 +645,7 @@ So the safest way to maintain it is to treat the `api/` handlers as the producti
 
 ---
 
-## 16. Optional Next Step
+## 17. Optional Next Step
 
 If you want, I can also turn this into:
 
