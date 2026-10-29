@@ -1,5 +1,7 @@
-import { enquirySchema } from "../shared/enquirySchema.js";
+import { randomUUID } from "node:crypto";
+import { enquirySchema, normalizePhoneNumber } from "../shared/enquirySchema.js";
 
+import { supabase } from "./db.js";
 import { sendEnquiryEmail } from "./mail.js";
 
 export type EnquiryResult =
@@ -41,18 +43,56 @@ export async function processEnquiry(
 
   const enquiry = parsed.data;
   const { _gotcha: _ignored, ...payload } = enquiry;
+  const normalizedPhone = normalizePhoneNumber(payload.phone);
+
+  if (!normalizedPhone) {
+    return {
+      ok: false,
+      status: 400,
+      message: "Enter a valid phone number",
+    };
+  }
 
   try {
-    await sendEnquiryEmail(payload, clientIp);
-    return { ok: true };
+    const { error: leadError } = await supabase.from("leads").insert({
+      ref: `LEAD-${randomUUID().toUpperCase()}`,
+      contact_name: payload.name,
+      contact_phone_raw: payload.phone,
+      contact_phone_normalised: normalizedPhone,
+      contact_email: payload.email,
+      source: "website",
+      service_id: payload.service
+        .toLowerCase()
+        .replace(/&/g, " ")
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-|-$/g, ""),
+      original_message: payload.message,
+    });
+
+    if (leadError) {
+      console.error("Failed to save enquiry to Supabase:", leadError);
+      return {
+        ok: false,
+        status: 503,
+        message: "We could not save your enquiry right now. Please try again shortly.",
+      };
+    }
   } catch (error) {
-    console.error("Failed to send enquiry email:", error);
+    console.error("Failed to save enquiry to Supabase:", error);
     return {
       ok: false,
       status: 503,
-      message: "We could not send your enquiry right now. Please try again shortly.",
+      message: "We could not save your enquiry right now. Please try again shortly.",
     };
   }
+
+  try {
+    await sendEnquiryEmail(payload, clientIp);
+  } catch (error) {
+    console.error("Failed to send enquiry email:", error);
+  }
+
+  return { ok: true };
 }
 
 export function readJsonBody(

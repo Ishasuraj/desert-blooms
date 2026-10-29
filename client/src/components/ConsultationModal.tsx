@@ -1,5 +1,6 @@
 import React, { FormEvent, useState, useEffect } from "react";
 import { ENQUIRY_SERVICES, EnquiryService } from "@shared/enquirySchema";
+import { useLocale } from "@/contexts/LocaleContext";
 import { ArrowUpRight, Check, ChevronDown, X } from "lucide-react";
 
 interface ConsultationModalProps {
@@ -13,6 +14,7 @@ export function ConsultationModal({
   onClose,
   defaultService = "",
 }: ConsultationModalProps) {
+  const { t } = useLocale();
   const canonicalDefaultService =
     ENQUIRY_SERVICES.find(
       (service) => service.toLowerCase() === defaultService.trim().toLowerCase(),
@@ -25,6 +27,7 @@ export function ConsultationModal({
   const [form, setForm] = useState({
     name: "",
     email: "",
+    phone: "",
     service: canonicalDefaultService,
     message: "",
     _gotcha: "",
@@ -87,6 +90,7 @@ export function ConsultationModal({
         setForm({
           name: "",
           email: "",
+          phone: "",
           service: defaultService,
           message: "",
           _gotcha: "",
@@ -169,6 +173,24 @@ export function ConsultationModal({
               maxLength={254}
               disabled={submitting || sent}
               onChange={(e) => setForm((c) => ({ ...c, email: e.target.value }))}
+              className="w-full pt-1 pb-2 bg-transparent border-b border-white/30 text-sm text-[#f1eadf] placeholder:text-[#8ba08d] focus:outline-none focus:border-[#d27a58] transition-colors"
+            />
+          </div>
+
+          <div className="flex flex-col gap-1">
+            <label className="text-[#bdc8ba] text-[10px] tracking-[0.14em] font-semibold uppercase">
+              {t("cart.phone")}
+            </label>
+            <input
+              required
+              type="tel"
+              inputMode="tel"
+              autoComplete="tel"
+              placeholder={t("cart.phonePlaceholder")}
+              value={form.phone}
+              maxLength={32}
+              disabled={submitting || sent}
+              onChange={(e) => setForm((c) => ({ ...c, phone: e.target.value }))}
               className="w-full pt-1 pb-2 bg-transparent border-b border-white/30 text-sm text-[#f1eadf] placeholder:text-[#8ba08d] focus:outline-none focus:border-[#d27a58] transition-colors"
             />
           </div>

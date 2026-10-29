@@ -229,8 +229,9 @@ These functions are effectively the production version of the local server API e
 2. Client calls `POST /api/enquiry`
 3. Server validates body using `shared/enquirySchema.ts`
 4. A honeypot field ` _gotcha ` is checked and rejected if filled
-5. SMTP email is sent via `server/mail.ts`
-6. Response is returned to the browser
+5. Valid enquiries are inserted into the Supabase CRM `leads` table, including the generated lead reference, contact details, website source, service ID, and original message
+6. A notification email is attempted via `server/mail.ts`; a mail failure is logged but does not undo the saved lead or report the submission as failed
+7. Response is returned to the browser
 
 ### Order flow
 

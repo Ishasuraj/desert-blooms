@@ -70,6 +70,7 @@ export async function sendEnquiryEmail(
     "",
     `Name: ${enquiry.name}`,
     `Email: ${enquiry.email}`,
+    `Phone: ${enquiry.phone}`,
     `Service: ${enquiry.service}`,
     "",
     "Message:",

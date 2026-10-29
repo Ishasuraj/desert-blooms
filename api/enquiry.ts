@@ -32,7 +32,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return;
     }
 
-    res.status(200).json({ message: "Enquiry sent successfully" });
+    res.status(200).json({ message: "Enquiry received successfully" });
   } catch (error) {
     if (error instanceof RequestBodyTooLargeError) {
       res.status(413).json({ message: "Request body is too large" });

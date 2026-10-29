@@ -12,6 +12,26 @@ export const ENQUIRY_SERVICES = [
 
 export type EnquiryService = (typeof ENQUIRY_SERVICES)[number];
 
+export function normalizePhoneNumber(phone: string): string | null {
+  const trimmed = phone.trim();
+  if (!/^[+0-9().\-\s]+$/.test(trimmed)) return null;
+
+  let digits = trimmed.replace(/\D/g, "");
+  const hasInternationalPrefix = trimmed.startsWith("+") || trimmed.startsWith("00");
+
+  if (trimmed.startsWith("00")) {
+    digits = digits.slice(2);
+  } else if (!hasInternationalPrefix && digits.length === 8) {
+    digits = `965${digits}`;
+  }
+
+  if (digits.length < 8 || digits.length > 15 || digits.startsWith("0")) {
+    return null;
+  }
+
+  return `+${digits}`;
+}
+
 const normalizeService = (value: unknown) => {
   if (typeof value !== "string") return value;
 
@@ -36,6 +56,15 @@ export const enquirySchema = z.object({
     .trim()
     .email("Enter a valid email address")
     .max(254, "Email must be 254 characters or fewer"),
+  phone: z
+    .string()
+    .trim()
+    .min(1, "Phone number is required")
+    .max(32, "Phone number must be 32 characters or fewer")
+    .refine(
+      (phone) => normalizePhoneNumber(phone) !== null,
+      "Enter a valid phone number",
+    ),
   service: z.preprocess(normalizeService, z.enum(ENQUIRY_SERVICES)),
   message: z
     .string()

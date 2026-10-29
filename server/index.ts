@@ -47,7 +47,7 @@ async function startServer() {
       return;
     }
 
-    res.status(200).json({ message: "Enquiry sent successfully" });
+    res.status(200).json({ message: "Enquiry received successfully" });
   });
 
   app.post("/api/order/create", orderRateLimit, async (req, res) => {

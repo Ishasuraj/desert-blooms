@@ -50,6 +50,7 @@ const SERVICE_ICONS: Record<string, typeof Leaf> = {
 const initialForm = {
   name: "",
   email: "",
+  phone: "",
   service: "",
   message: "",
   _gotcha: "",
@@ -561,6 +562,23 @@ export default function Home() {
                 disabled={submitting || sent}
                 onChange={(event) =>
                   setForm((current) => ({ ...current, email: event.target.value }))
+                }
+              />
+            </label>
+
+            <label>
+              {t("cart.phone")}
+              <input
+                required
+                type="tel"
+                inputMode="tel"
+                autoComplete="tel"
+                placeholder={t("cart.phonePlaceholder")}
+                value={form.phone}
+                maxLength={32}
+                disabled={submitting || sent}
+                onChange={(event) =>
+                  setForm((current) => ({ ...current, phone: event.target.value }))
                 }
               />
             </label>
